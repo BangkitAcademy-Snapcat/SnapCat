@@ -3,5 +3,8 @@
     <style name="Base.Theme.SnapCat" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorSecondary">@color/orange_800</item>
+        <item name="android:strokeColor">@color/black</item>
     </style>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- Layer pertama: background -->
+<item>
+    <shape>
+        <solid android:color="#BBBABA"/> <!-- Anda bisa mengganti warna ini -->
+
+        <corners android:radius="10dp"/> <!-- Anda bisa mengganti radius ini -->
+    </shape>
+</item>
+
+<!-- Layer kedua: stroke di bagian bawah dan kiri -->
+<item
+    android:bottom="0dp"
+    android:left="0dp">
+    <shape>
+        <solid android:color="#DFDFDF"/> <!-- Anda bisa mengganti warna ini -->
+
+        <corners android:radius="10dp"/> <!-- Anda bisa mengganti radius ini -->
+    </shape>
+</item>
+</layer-list>
+
