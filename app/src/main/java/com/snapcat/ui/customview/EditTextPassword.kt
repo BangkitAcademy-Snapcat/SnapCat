@@ -49,7 +49,8 @@ class EditTextPassword : AppCompatEditText, View.OnTouchListener {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
-        setHintTextColor(context.getColor(R.color.black))
+        setHintTextColor(context.getColor(R.color.color_hint))
+        hint = "Your password"
 
     }
     override fun onTouch(v: View?, event: MotionEvent): Boolean {

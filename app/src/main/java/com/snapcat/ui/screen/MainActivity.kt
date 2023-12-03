@@ -3,13 +3,12 @@ package com.snapcat.ui.screen
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.snapcat.R
 import com.snapcat.databinding.ActivityMainBinding
-import com.snapcat.ui.screen.home.BookmarkFragment
+import com.snapcat.ui.screen.bookmark.BookmarkFragment
 import com.snapcat.ui.screen.home.HomeFragment
-import com.snapcat.ui.screen.home.ProfileFragment
-import com.snapcat.ui.screen.home.ScanFragment
+import com.snapcat.ui.screen.profile.ProfileFragment
+import com.snapcat.ui.screen.scan.ScanFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

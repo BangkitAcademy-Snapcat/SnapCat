@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,32 +21,32 @@
                 android:id="@+id/profileImage"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/google"
-                android:layout_centerVertical="true"
                 android:layout_alignParentStart="true"
-                android:background="@drawable/rounded_edittext" />
+                android:layout_centerVertical="true"
+                android:background="@drawable/rounded_edittext"
+                android:src="@drawable/google" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/profileImage"
                 android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/profileImage"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="John Doe"
                     android:fontFamily="@font/montserrat_regular"
+                    android:text="John Doe"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New York, USA"
                     android:fontFamily="@font/montserrat_bold"
+                    android:text="New York, USA"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -57,11 +55,12 @@
                 android:id="@+id/messageIcon"
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_18sdp"
-                android:src="@drawable/notification"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/notification" />
 
         </RelativeLayout>
-        <include layout="@layout/hero_welcome"/>
+
+        <include layout="@layout/hero_welcome" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,29 +69,29 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
                     android:layout_weight="1"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Categories"/>
+                    android:text="Categories"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/show_all_categories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="Show All"/>
+                    android:text="Show All"
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_10sdp"
@@ -117,28 +116,29 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
                     android:layout_weight="1"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Latest Journey"/>
+                    android:text="Latest Journey"
+                    android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/show_all_journey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="Show All"/>
+                    android:text="Show All"
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_10sdp"
@@ -152,8 +152,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:paddingBottom="@dimen/_24sdp"
                 tools:ignore="RtlSymmetry" />
         </LinearLayout>

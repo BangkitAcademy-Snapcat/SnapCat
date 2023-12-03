@@ -1,4 +1,4 @@
-package com.snapcat.ui.screen.home
+package com.snapcat.ui.screen.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

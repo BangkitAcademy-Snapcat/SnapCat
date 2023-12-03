@@ -3,16 +3,12 @@ package com.snapcat.ui.screen.home
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.snapcat.R
-import com.snapcat.databinding.ContentOnBoardingBinding
 import com.snapcat.databinding.ItemCategoriesBinding
-import com.snapcat.ui.screen.auth.login.LoginDialogFragment
-import com.snapcat.ui.screen.auth.register.RegisterDialogFragment
 
 
-class CategoriesAdapter(private val context: Context) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
+class CategoriesAdapter(private val context: Context) :
+    RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemCategoriesBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -26,5 +22,6 @@ class CategoriesAdapter(private val context: Context) : RecyclerView.Adapter<Cat
 
         }
     }
+
     override fun getItemCount() = 20
 }

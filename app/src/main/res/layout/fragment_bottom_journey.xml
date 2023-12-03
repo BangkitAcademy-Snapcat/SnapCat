@@ -32,10 +32,10 @@
             android:layout_height="@dimen/_40sdp"
             android:fontFamily="@font/montserrat_bold"
             android:padding="@dimen/_8sdp"
-            android:text="Categories"
+            android:text="Latest Journey"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/close_login"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +51,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_categories_all"
+            android:id="@+id/rv_journey_all"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_40sdp"

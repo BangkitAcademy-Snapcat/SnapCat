@@ -1,33 +1,41 @@
-package com.snapcat.ui.screen.category
+package com.snapcat.ui.screen.scan
 
+import android.content.DialogInterface
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
-import com.snapcat.databinding.FragmentBottomCategoriesBinding
+import com.snapcat.databinding.FragmentBottomResultScanBinding
 import com.snapcat.ui.screen.auth.verifikasi.VerifikasiDialogFragment
-import com.snapcat.ui.screen.home.CategoriesAdapter
 
-class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
+class ResultScanDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
-    private var binding: FragmentBottomCategoriesBinding? = null
+    private var binding: FragmentBottomResultScanBinding? = null
+    var onDialogDismissed: OnDialogDismissListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentBottomCategoriesBinding.inflate(inflater, container, false)
+        binding = FragmentBottomResultScanBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupBottomSheet()
+
+        val imageUri = arguments?.getString("image_uri")
+        binding?.resultScanImg?.setImageURI(Uri.parse(imageUri))
+    }
+
+    private fun setupBottomSheet() {
         val bottomSheet: FrameLayout =
             dialog?.findViewById(com.google.android.material.R.id.design_bottom_sheet)!!
         bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
@@ -43,21 +51,12 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
         }
-
-        val spanCount = 3
-        val layoutManagerCategory = GridLayoutManager(requireActivity(), spanCount)
-        layoutManagerCategory.orientation = GridLayoutManager.VERTICAL
-        binding?.rvCategoriesAll?.layoutManager = layoutManagerCategory
-        binding?.rvCategoriesAll?.adapter = CategoriesAdapter(requireActivity())
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -71,7 +70,13 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
         }
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDialogDismissed?.onDialogDismissed()
+    }
+
     private fun showLoading(isLoading: Boolean) {
         // binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
 }
