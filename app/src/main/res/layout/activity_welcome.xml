@@ -1,62 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/_12sdp"
-        tools:context=".ui.screen.welcome.Welcome">
+        android:layout_height="350dp"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/image_welcome"
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:contentDescription="image Welcome"
-            android:scaleType="fitXY"
+            android:contentDescription="@string/image_welcome"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/welcome_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <TextView
             android:id="@+id/title_welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="25dp"
             android:fontFamily="@font/abhayalibre_regular"
-            android:text="Explore your cat's breed!"
+            android:text="@string/title_on_boarding"
             android:textAlignment="textStart"
             android:textSize="40sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_welcome" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/desc_welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="25dp"
+            android:justificationMode="inter_word"
             android:fontFamily="@font/montserrat_regular"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras neque orci, rhoncus vitae malesuada sit amet, ultricies ac erat. Vestibulum euismod risus at vestibulum sagittis."
+            android:text="@string/lorem"
             android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_welcome" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_60sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/rounded_rectangle"
             android:focusable="true"
             android:padding="@dimen/_8sdp"
@@ -65,8 +81,7 @@
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/desc_welcome">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/get_started_text"
@@ -74,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_bold"
                 android:paddingStart="@dimen/_16sdp"
-                android:text="Get Started"
+                android:text="@string/get_started"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -87,14 +102,14 @@
                 android:id="@+id/next_button"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_40sdp"
+                android:contentDescription="@string/get_started"
                 android:background="@drawable/rounded_rectangle_white"
                 android:padding="@dimen/_8sdp"
                 android:src="@drawable/baseline_arrow_forward_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

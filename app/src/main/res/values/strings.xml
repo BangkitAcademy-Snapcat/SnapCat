@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">SnapCat</string>
+    <string name="image_welcome">Image Welcome</string>
+    <string name="get_started">Get Started</string>
+    <string name="button_arrow">Button Arrow</string>
     <string name="title_on_boarding">Explore your cat\'s breed!</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras neque orci, rhoncus vitae malesuada sit amet, ultricies ac erat. Vestibulum euismod risus at vestibulum sagittis.</string>
     <string name="email_empty">Email Empty</string>
