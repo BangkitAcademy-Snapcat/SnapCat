@@ -1,7 +1,9 @@
 package com.snapcat.ui.screen.splashscreen
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
@@ -21,7 +23,6 @@ class SplashScreen : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-
         binding.SplashScreenImage.alpha = 0f
         binding.SplashScreenImage.animate().setDuration(Constants.ANIMATION_DURATION_SPLASHSCREEN).alpha(1f).withEndAction {
             lifecycleScope.launch {

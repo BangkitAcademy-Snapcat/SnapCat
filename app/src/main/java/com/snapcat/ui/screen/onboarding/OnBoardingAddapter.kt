@@ -21,30 +21,30 @@ class OnboardingAdapter(private val context: Context) : RecyclerView.Adapter<Onb
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder.binding) {
-            if (position == 0) {
-                signUpContent.visibility = android.view.View.INVISIBLE
-                signInContent.visibility = android.view.View.INVISIBLE
-                imageContent.setImageResource(R.drawable.onboarding_1)
-                titleContent.text = context.getString(R.string.title_on_boarding)
-                descContent.text = context.getString(R.string.lorem)
-            }
-            if (position == 1) {
-                imageContent.setImageResource(R.drawable.onboarding_2)
-                titleContent.text = context.getString(R.string.title_on_boarding)
-                descContent.text = context.getString(R.string.lorem)
-
-                signInContent.setOnClickListener {
-                    val loginDialog = LoginDialogFragment()
-                    loginDialog.show((context as AppCompatActivity).supportFragmentManager, "LoginDialog")
-                }
-
-                signUpContent.setOnClickListener {
-                    val regsiterDialog = RegisterDialogFragment()
-                    regsiterDialog.show((context as AppCompatActivity).supportFragmentManager, "RegisterDialog")
-                }
-            }
-        }
+//        with(holder.binding) {
+//            if (position == 0) {
+//                signUpContent.visibility = android.view.View.INVISIBLE
+//                signInContent.visibility = android.view.View.INVISIBLE
+//                //imageContent.setImageResource(R.drawable.onboarding_1)
+//                titleContent.text = context.getString(R.string.title_on_boarding)
+//                descContent.text = context.getString(R.string.lorem)
+//            }
+//            if (position == 1) {
+//                //imageContent.setImageResource(R.drawable.onboarding_2)
+//                titleContent.text = context.getString(R.string.title_on_boarding)
+//                descContent.text = context.getString(R.string.lorem)
+//
+//                signInContent.setOnClickListener {
+//                    val loginDialog = LoginDialogFragment()
+//                    loginDialog.show((context as AppCompatActivity).supportFragmentManager, "LoginDialog")
+//                }
+//
+//                signUpContent.setOnClickListener {
+//                    val regsiterDialog = RegisterDialogFragment()
+//                    regsiterDialog.show((context as AppCompatActivity).supportFragmentManager, "RegisterDialog")
+//                }
+//            }
+//        }
     }
     override fun getItemCount() = 2
 }

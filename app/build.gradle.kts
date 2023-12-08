@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.snapcat"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -113,8 +113,10 @@ dependencies {
     debugImplementation("androidx.fragment:fragment-testing:1.6.2")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
 //    Desugaring
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.+")
 
 }

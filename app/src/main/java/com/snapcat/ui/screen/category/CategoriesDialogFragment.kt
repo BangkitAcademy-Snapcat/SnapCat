@@ -2,6 +2,9 @@ package com.snapcat.ui.screen.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -17,7 +20,7 @@ import com.snapcat.ui.screen.home.CategoriesAdapter
 class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var binding: FragmentBottomCategoriesBinding? = null
-
+    private var isFunctionEnabled = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -50,7 +53,11 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
         binding?.rvCategoriesAll?.layoutManager = layoutManagerCategory
         binding?.rvCategoriesAll?.adapter = CategoriesAdapter(requireActivity())
 
-
+        binding?.buttonSearch?.setOnClickListener {
+            // Toggle status on/off
+            isFunctionEnabled = !isFunctionEnabled
+            binding?.cardView?.visibility = if (isFunctionEnabled) View.VISIBLE else View.GONE
+        }
     }
 
     override fun onDestroyView() {
@@ -67,6 +74,9 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
                     (context as AppCompatActivity).supportFragmentManager,
                     "ForgetDialog"
                 )
+            }
+            R.id.button_search -> {
+
             }
         }
     }

@@ -10,6 +10,7 @@ import com.snapcat.databinding.FragmentBookmarkBinding
 class BookmarkFragment : Fragment() {
 
     private lateinit var binding: FragmentBookmarkBinding
+    private var isFunctionEnabled = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,5 +22,10 @@ class BookmarkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding?.buttonSearch?.setOnClickListener {
+            // Toggle status on/off
+            isFunctionEnabled = !isFunctionEnabled
+            binding?.linearLayout5?.visibility = if (isFunctionEnabled) View.VISIBLE else View.GONE
+        }
     }
 }
