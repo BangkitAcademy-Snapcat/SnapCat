@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_margin="@dimen/_16sdp"
+        android:layout_margin="50dp"
         android:adjustViewBounds="true"
         android:src="@drawable/outline_scan"
         app:layout_constraintBottom_toBottomOf="@+id/camera_preview"
@@ -57,8 +57,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="@dimen/_16sdp"
         android:background="@drawable/background_scan_button"
         android:gravity="center_vertical"

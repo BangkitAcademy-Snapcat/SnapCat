@@ -23,7 +23,7 @@
                 android:topLeftRadius="75dp"
                 android:topRightRadius="75dp" />
 
-            <solid android:color="?android:colorBackground" />
+            <solid android:color="@color/white" />
 
         </shape>
     </item>
