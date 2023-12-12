@@ -29,7 +29,7 @@ class OnBoarding : AppCompatActivity() {
                 logInContent.visibility = View.VISIBLE
                 signUpContent.visibility = View.VISIBLE
                 titleContent.text = getString(R.string.title_on_boarding)
-                descContent.text = getString(R.string.lorem)
+                descContent.text = getString(R.string.desc2_onboarding)
             }
 
             buttonBack.setOnClickListener {
@@ -40,7 +40,7 @@ class OnBoarding : AppCompatActivity() {
                 logInContent.visibility = View.INVISIBLE
                 signUpContent.visibility = View.INVISIBLE
                 titleContent.text = getString(R.string.title_on_boarding)
-                descContent.text = getString(R.string.lorem)
+                descContent.text = getString(R.string.desc1_onboarding)
             }
 
             logInContent.setOnClickListener {

@@ -52,7 +52,7 @@
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat_regular"
             android:justificationMode="inter_word"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras neque orci, rhoncus vitae malesuada sit amet, ultricies ac erat. Vestibulum euismod risus at vestibulum sagittis. "
+            android:text="@string/desc1_onboarding"
             android:textAlignment="textStart"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
