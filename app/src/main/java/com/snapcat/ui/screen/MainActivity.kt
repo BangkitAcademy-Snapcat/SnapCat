@@ -2,10 +2,11 @@ package com.snapcat.ui.screen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.snapcat.R
 import com.snapcat.databinding.ActivityMainBinding
-import com.snapcat.ui.screen.bookmark.BookmarkFragment
+import com.snapcat.ui.screen.shop.ShopFragment
 import com.snapcat.ui.screen.home.HomeFragment
 import com.snapcat.ui.screen.profile.ProfileFragment
 import com.snapcat.ui.screen.scan.ScanFragment
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -26,8 +28,8 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(HomeFragment())
                     true
                 }
-                R.id.bookmark -> {
-                    loadFragment(BookmarkFragment())
+                R.id.shop -> {
+                    loadFragment(ShopFragment())
                     true
                 }
                 R.id.scan -> {
