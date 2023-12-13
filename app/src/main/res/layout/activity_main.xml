@@ -12,14 +12,19 @@
 
     </RelativeLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_55sdp"
         android:layout_alignParentBottom="true"
-        android:background="#dfdfdf"
-        app:itemIconSize="@dimen/_15sdp"
-        app:itemTextColor="@color/black"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_bar" />
+        app:cardElevation="10dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:itemIconSize="@dimen/_15sdp"
+            app:itemTextColor="@color/black"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_bar" />
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
