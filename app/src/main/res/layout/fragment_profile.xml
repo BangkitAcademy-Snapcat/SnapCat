@@ -83,23 +83,23 @@
             android:paddingTop="20dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginVertical="20dp"
                 app:cardCornerRadius="250dp"
                 app:cardElevation="10dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:layout_gravity="center"
                     app:cardCornerRadius="250dp"
                     app:cardElevation="5dp">
 
                     <ImageView
-                        android:layout_width="130dp"
-                        android:layout_height="135dp"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:layout_gravity="center"
                         android:paddingBottom="20dp"
                         android:src="@drawable/photo_profile" />
@@ -110,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_regular"
-                android:paddingVertical="10dp"
+                android:paddingVertical="5dp"
                 android:text="Hiroki Ryouma Mosaza"
                 android:textAlignment="center"
                 android:textSize="18sp" />
@@ -130,7 +130,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="horizontal"
-                    android:paddingVertical="25dp">
+                    android:paddingVertical="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -140,7 +140,7 @@
                         android:layout_marginStart="50dp"
                         android:fontFamily="@font/montserrat_regular"
                         android:text="Latest Journey"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -167,7 +167,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="horizontal"
-                    android:paddingVertical="25dp">
+                    android:paddingVertical="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
                         android:layout_marginStart="50dp"
                         android:fontFamily="@font/montserrat_regular"
                         android:text="About App"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="25dp"
-                android:layout_marginTop="75dp"
+                android:layout_marginTop="65dp"
                 app:cardCornerRadius="20dp">
 
                 <RelativeLayout
@@ -205,7 +205,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="horizontal"
-                    android:paddingVertical="25dp">
+                    android:paddingVertical="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
