@@ -48,7 +48,9 @@ class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickLis
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
         }
-
+        binding?.closeLogin?.setOnClickListener {
+            dismiss()
+        }
 
     }
 

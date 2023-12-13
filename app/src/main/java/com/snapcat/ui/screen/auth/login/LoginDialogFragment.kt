@@ -7,9 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.impl.utils.ContextUtil.getApplicationContext
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -17,6 +18,7 @@ import com.snapcat.R
 import com.snapcat.databinding.FragmentBottomLoginBinding
 import com.snapcat.ui.screen.MainActivity
 import com.snapcat.ui.screen.auth.forget.ForgetDialogFragment
+
 
 class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
@@ -55,6 +57,9 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
         binding?.forgetPassword?.setOnClickListener(this)
         binding?.login?.setOnClickListener(this)
         binding?.forgetPassword?.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding?.closeLogin?.setOnClickListener {
+            dismiss()
+        }
     }
 
     override fun onDestroyView() {

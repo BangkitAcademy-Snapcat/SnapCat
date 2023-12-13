@@ -1,6 +1,7 @@
 package com.snapcat.ui.screen.auth.register
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
 import com.snapcat.databinding.FragmentBottomRegisterBinding
+import com.snapcat.ui.screen.MainActivity
 
 class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
@@ -48,6 +50,9 @@ class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding?.closeLogin?.setOnClickListener {
+            dismiss()
+        }
     }
 
     override fun onDestroyView() {
@@ -57,6 +62,10 @@ class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.close_login -> {
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
