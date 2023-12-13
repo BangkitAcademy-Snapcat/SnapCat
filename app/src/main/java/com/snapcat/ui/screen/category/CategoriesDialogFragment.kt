@@ -52,7 +52,9 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
         layoutManagerCategory.orientation = GridLayoutManager.VERTICAL
         binding?.rvCategoriesAll?.layoutManager = layoutManagerCategory
         binding?.rvCategoriesAll?.adapter = CategoriesAdapter(requireActivity())
-
+        binding?.closeLogin?.setOnClickListener {
+            dismiss()
+        }
         binding?.buttonSearch?.setOnClickListener {
             // Toggle status on/off
             isFunctionEnabled = !isFunctionEnabled

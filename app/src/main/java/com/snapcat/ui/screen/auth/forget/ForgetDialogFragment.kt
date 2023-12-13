@@ -43,6 +43,9 @@ class ForgetDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
         }
 
         binding?.forget?.setOnClickListener(this)
+        binding?.closeLogin?.setOnClickListener {
+            dismiss()
+        }
     }
 
     override fun onDestroyView() {

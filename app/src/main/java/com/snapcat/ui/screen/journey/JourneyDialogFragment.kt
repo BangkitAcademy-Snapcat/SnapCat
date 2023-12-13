@@ -51,7 +51,9 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
         val layoutManagerJourney = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding?.rvJourneyAll?.layoutManager = layoutManagerJourney
         binding?.rvJourneyAll?.adapter = JourneyAdapter(requireActivity())
-
+        binding?.closeLogin?.setOnClickListener {
+            dismiss()
+        }
 
     }
 
