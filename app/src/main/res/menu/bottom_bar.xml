@@ -5,9 +5,9 @@
         android:id="@+id/home"
         android:icon="@drawable/home"/>
     <item
-        android:title="@string/bookmark"
-        android:id="@+id/bookmark"
-        android:icon="@drawable/bookmark"/>
+        android:title="@string/shop"
+        android:id="@+id/shop"
+        android:icon="@drawable/shop"/>
     <item
         android:title="@string/scan"
         android:id="@+id/scan"
