@@ -14,11 +14,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
+import com.snapcat.data.ResultMessage
+import com.snapcat.data.model.User
 import com.snapcat.databinding.FragmentBottomLoginBinding
 import com.snapcat.ui.screen.MainActivity
+import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.auth.forget.ForgetDialogFragment
+import com.snapcat.util.ToastUtils
+import okhttp3.ResponseBody
+import retrofit2.Response
 
-class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
+class LoginDialogFragment(private val authViewModel: AuthViewModel) : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var binding: FragmentBottomLoginBinding? = null
 
@@ -69,14 +75,45 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
                 val forgetDialog = ForgetDialogFragment()
                 forgetDialog.show((context as AppCompatActivity).supportFragmentManager, "ForgetDialog")
             }
-            R.id.login -> {
-                val intent = Intent(requireActivity(), MainActivity::class.java)
-                startActivity(intent)
+            R.id.login -> handleLogin()
+        }
+    }
+
+    private fun handleLogin() {
+        binding?.apply {
+            val email = edEmailLogin.text.toString()
+            val password = edPasswordLogin.text.toString()
+
+            val data = User(email = email, password = password)
+
+            authViewModel.login(data).observe(requireActivity()) { result ->
+                handleResult(result)
             }
         }
     }
 
+    private fun handleResult(result: ResultMessage<Response<ResponseBody>>){
+        when (result) {
+            is ResultMessage.Loading -> {
+                showLoading(true)
+            }
+            is ResultMessage.Success -> {
+                ToastUtils.showToast(requireActivity(), "Login berhasil")
+                showLoading(false)
+
+            }
+            is ResultMessage.Error -> {
+                val exception = result.exception
+                val errorMessage = exception.message ?: "Login gagal, silahkan coba lagi"
+                ToastUtils.showToast(requireContext(), errorMessage)
+                showLoading(false)
+            }
+
+            else -> {
+            }
+        }
+    }
     private fun showLoading(isLoading: Boolean) {
-        // binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
+         binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

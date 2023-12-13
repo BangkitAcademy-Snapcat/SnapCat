@@ -1,6 +1,7 @@
 package com.snapcat.ui.screen.auth.register
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,26 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
+import com.snapcat.data.ResultMessage
+import com.snapcat.data.model.User
 import com.snapcat.databinding.FragmentBottomRegisterBinding
+import com.snapcat.ui.screen.auth.AuthViewModel
+import com.snapcat.util.ToastUtils
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
+import retrofit2.Response
 
-class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
+@AndroidEntryPoint
+class RegisterDialogFragment(private val authViewModel: AuthViewModel) : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var binding: FragmentBottomRegisterBinding? = null
 
@@ -48,6 +62,7 @@ class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding?.register?.setOnClickListener(this)
     }
 
     override fun onDestroyView() {
@@ -57,10 +72,46 @@ class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.register -> handleRegister()
         }
     }
 
+    private fun handleRegister() {
+        binding?.apply {
+            val username = edUsernameRegister.text.toString()
+            val email = edEmailRegister.text.toString()
+            val password = edPasswordRegister.text.toString()
+
+            val data = User(username = username, email = email, password = password)
+
+            authViewModel.register(data).observe(requireActivity()) { result ->
+                handleResult(result)
+            }
+        }
+    }
+
+    private fun handleResult(result: ResultMessage<Response<ResponseBody>>){
+        when (result) {
+            is ResultMessage.Loading -> {
+                showLoading(true)
+            }
+            is ResultMessage.Success -> {
+                ToastUtils.showToast(requireActivity(), "Regsiter berhasil")
+                showLoading(false)
+
+            }
+            is ResultMessage.Error -> {
+                val exception = result.exception
+                val errorMessage = exception.message ?: "Regsiter gagal, silahkan coba lagi"
+                ToastUtils.showToast(requireContext(), errorMessage)
+                showLoading(false)
+            }
+
+            else -> {
+            }
+        }
+    }
     private fun showLoading(isLoading: Boolean) {
-        // binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
+         binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

@@ -3,17 +3,22 @@ package com.snapcat.ui.screen.onboarding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.snapcat.R
 import com.snapcat.databinding.ActivityOnBoardingBinding
 import com.snapcat.databinding.ContentOnBoardingBinding
+import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.auth.login.LoginDialogFragment
 import com.snapcat.ui.screen.auth.register.RegisterDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnBoarding : AppCompatActivity() {
     private lateinit var binding: ActivityOnBoardingBinding
+    private val authViewModel by viewModels<AuthViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, true)
         super.onCreate(savedInstanceState)
@@ -44,12 +49,12 @@ class OnBoarding : AppCompatActivity() {
             }
 
             logInContent.setOnClickListener {
-                val loginDialog = LoginDialogFragment()
+                val loginDialog = LoginDialogFragment(authViewModel)
                 loginDialog.show(supportFragmentManager, "LoginDialog")
             }
 
             signUpContent.setOnClickListener {
-                val regsiterDialog = RegisterDialogFragment()
+                val regsiterDialog = RegisterDialogFragment(authViewModel)
                 regsiterDialog.show(supportFragmentManager, "RegisterDialog")
             }
         }

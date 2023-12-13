@@ -12,6 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.snapcat"
         minSdk = 24
+        //noinspection EditedTargetSdkVersion
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -19,7 +20,7 @@ android {
 //        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "com.snapcat.CustomTestRunner"
 
-        buildConfigField("String", "API_URL", "\"https://api.snapcat/\"")
+        buildConfigField("String", "API_URL", "\"https://snapcat-api-rf6hxbwzjq-uc.a.run.app/\"")
         buildConfigField("String", "API_KEY", "\"fashakjshjadhbahsbahvsah\"")
     }
 
