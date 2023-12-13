@@ -1,62 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="5dp"
+        app:cardElevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/close_login"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:contentDescription="back"
-            android:visibility="gone"
-            android:padding="@dimen/_8sdp"
-            android:src="@drawable/baseline_arrow_back_ios_24"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <TextView
-            android:id="@+id/title"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/montserrat_bold"
-            android:padding="@dimen/_8sdp"
-            android:text="Profile"
-            android:textAlignment="center"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/button_search"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:contentDescription="back"
-            android:padding="@dimen/_8sdp"
-            android:src="@drawable/baseline_search_24"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/title"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:id="@+id/close_login"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:contentDescription="back"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/baseline_arrow_back_ios_24"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/montserrat_bold"
+                android:padding="@dimen/_8sdp"
+                android:text="Profile"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/button_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:contentDescription="back"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/baseline_search_24"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/title"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -64,122 +74,138 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_marginVertical="20dp"
                 android:layout_gravity="center"
+                android:layout_marginVertical="20dp"
                 app:cardCornerRadius="250dp"
                 app:cardElevation="10dp">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_gravity="center"
                     app:cardCornerRadius="250dp"
                     app:cardElevation="5dp">
+
                     <ImageView
                         android:layout_width="130dp"
                         android:layout_height="135dp"
-                        android:paddingBottom="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/photo_profile"/>
+                        android:paddingBottom="20dp"
+                        android:src="@drawable/photo_profile" />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hiroki Ryouma Mosaza"
                 android:fontFamily="@font/montserrat_regular"
-                android:textSize="18sp"
                 android:paddingVertical="10dp"
-                android:textAlignment="center"/>
+                android:text="Hiroki Ryouma Mosaza"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="25dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="20dp">
+
                 <RelativeLayout
                     android:id="@+id/button_profile_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="25dp"
                     android:clickable="true"
+                    android:focusable="true"
                     android:orientation="horizontal"
-                    android:focusable="true">
+                    android:paddingVertical="25dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:layout_marginStart="50dp"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
                         android:fontFamily="@font/montserrat_regular"
-                        android:text="Latest Journey"/>
+                        android:text="Latest Journey"
+                        android:textSize="18sp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/baseline_arrow_forward_ios_24"/>
+                        android:layout_marginEnd="30dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="25dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="20dp">
+
                 <RelativeLayout
                     android:id="@+id/button_profile_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="25dp"
                     android:clickable="true"
+                    android:focusable="true"
                     android:orientation="horizontal"
-                    android:focusable="true">
+                    android:paddingVertical="25dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:layout_marginStart="50dp"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
                         android:fontFamily="@font/montserrat_regular"
-                        android:text="About App"/>
+                        android:text="About App"
+                        android:textSize="18sp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/baseline_arrow_forward_ios_24"/>
+                        android:layout_marginEnd="30dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="75dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="75dp"
                 app:cardCornerRadius="20dp">
+
                 <RelativeLayout
                     android:id="@+id/button_profile_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/red"
-                    android:paddingVertical="25dp"
                     android:clickable="true"
+                    android:focusable="true"
                     android:orientation="horizontal"
-                    android:focusable="true">
+                    android:paddingVertical="25dp">
 
                     <TextView
                         android:layout_width="wrap_content"
