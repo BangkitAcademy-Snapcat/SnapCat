@@ -1,6 +1,8 @@
 package com.snapcat.data.remote.retrofit
 
 import com.snapcat.data.model.User
+import com.snapcat.data.remote.response.ResponseLogin
+import com.snapcat.data.remote.response.ResponseRegister
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -13,10 +15,10 @@ interface ApiService {
     suspend fun snapCat()
 
     @POST("api/users/register")
-    suspend fun register(@Body requestBody: User): Response<ResponseBody>
+    suspend fun register(@Body requestBody: User): ResponseRegister
 
     @POST("api/users/login")
-    suspend fun login(@Body requestBody: User): Response<ResponseBody>
+    suspend fun login(@Body requestBody: User): ResponseLogin
 
     @POST("api/users/forgot-password/{email}")
     suspend fun forgotPassword(@Path("email") email: String): Response<ResponseBody>

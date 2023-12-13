@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
 import com.snapcat.data.ResultMessage
 import com.snapcat.data.model.User
+import com.snapcat.data.remote.response.ResponseLogin
 import com.snapcat.databinding.FragmentBottomLoginBinding
 import com.snapcat.ui.screen.MainActivity
 import com.snapcat.ui.screen.auth.AuthViewModel
@@ -92,13 +94,15 @@ class LoginDialogFragment(private val authViewModel: AuthViewModel) : BottomShee
         }
     }
 
-    private fun handleResult(result: ResultMessage<Response<ResponseBody>>){
+    private fun handleResult(result: ResultMessage<ResponseLogin>){
         when (result) {
             is ResultMessage.Loading -> {
                 showLoading(true)
             }
             is ResultMessage.Success -> {
                 ToastUtils.showToast(requireActivity(), "Login berhasil")
+                val response = ResponseLogin(data = result.data.data, message = result.data.message)
+
                 showLoading(false)
 
             }
