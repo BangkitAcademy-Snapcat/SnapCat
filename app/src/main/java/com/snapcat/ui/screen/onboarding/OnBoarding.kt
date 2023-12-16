@@ -33,6 +33,7 @@ class OnBoarding : AppCompatActivity() {
                 dot2.setImageResource(R.drawable.selected_dot)
                 logInContent.visibility = View.VISIBLE
                 signUpContent.visibility = View.VISIBLE
+                imageOnboarding.setImageResource(R.drawable.onboarding_2)
                 titleContent.text = getString(R.string.title_on_boarding)
                 descContent.text = getString(R.string.desc2_onboarding)
             }
@@ -44,6 +45,7 @@ class OnBoarding : AppCompatActivity() {
                 dot2.setImageResource(R.drawable.default_dot)
                 logInContent.visibility = View.INVISIBLE
                 signUpContent.visibility = View.INVISIBLE
+                imageOnboarding.setImageResource(R.drawable.onboarding_1)
                 titleContent.text = getString(R.string.title_on_boarding)
                 descContent.text = getString(R.string.desc1_onboarding)
             }
