@@ -79,9 +79,18 @@ class ForgetDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
     private fun handleForget() {
         val email = binding?.edEmailForget?.text.toString()
         val data = User(email = email)
-        viewModel.forgetPassword(data).observe(requireActivity()){ result ->
-            handleResult(result)
+
+        val isEmailValid = binding?.edEmailForget?.error == null
+
+        if (isEmailValid &&  email.isNotEmpty()) {
+            viewModel.forgetPassword(data).observe(requireActivity()){ result ->
+                handleResult(result)
+            }
+        } else {
+            ToastUtils.showToast(requireActivity(), getString(R.string.data_invalid))
         }
+
+
     }
 
     private fun handleResult(result: ResultMessage<Response<ResponseBody>>){

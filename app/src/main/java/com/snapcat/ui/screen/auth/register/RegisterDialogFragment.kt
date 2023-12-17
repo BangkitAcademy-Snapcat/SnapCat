@@ -90,9 +90,18 @@ class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener
 
             val data = User(username = username, email = email, password = password)
 
-            viewModel.register(data).observe(requireActivity()) { result ->
-                handleResult(result)
+            val isEmailValid = edEmailRegister.error == null
+            val isPasswordValid = edPasswordRegister.error == null
+            val isUsernameValid = edUsernameRegister.error == null
+
+            if (isEmailValid && isPasswordValid && isUsernameValid && username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                viewModel.register(data).observe(requireActivity()) { result ->
+                    handleResult(result)
+                }
+            } else {
+                ToastUtils.showToast(requireActivity(), getString(R.string.data_invalid))
             }
+
         }
     }
 

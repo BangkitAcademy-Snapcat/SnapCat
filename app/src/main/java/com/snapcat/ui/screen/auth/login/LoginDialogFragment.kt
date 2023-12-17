@@ -108,9 +108,17 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
             val data = User(email = email, password = password)
 
-            viewModel.login(data).observe(requireActivity()) { result ->
-                handleResult(result)
+            val isEmailValid = edEmailLogin.error == null
+            val isPasswordValid = edPasswordLogin.error == null
+
+            if (isEmailValid && isPasswordValid && email.isNotEmpty() && password.isNotEmpty()) {
+                viewModel.login(data).observe(requireActivity()) { result ->
+                    handleResult(result)
+                }
+            } else {
+                ToastUtils.showToast(requireActivity(), getString(R.string.data_invalid))
             }
+
         }
     }
 
