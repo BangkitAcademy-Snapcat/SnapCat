@@ -18,6 +18,7 @@
         android:adjustViewBounds="true"/>
 
     <TextView
+        android:id="@+id/title_item_shop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Miko Petshop"
@@ -42,6 +43,7 @@
             android:src="@drawable/location" />
 
         <TextView
+            android:id="@+id/address_item_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular"

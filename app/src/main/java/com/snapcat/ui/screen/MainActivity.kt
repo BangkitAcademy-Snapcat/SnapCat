@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private var currentItemId = R.id.home
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewPager = binding.container
@@ -86,6 +85,12 @@ class MainActivity : AppCompatActivity() {
                 else -> Fragment()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // Call finish() to close the activity
+        finish()
     }
 }
 

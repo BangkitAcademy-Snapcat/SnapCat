@@ -86,7 +86,8 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
 //    Image Loading
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
 //    Data Store
     implementation("androidx.datastore:datastore-preferences:1.0.0")

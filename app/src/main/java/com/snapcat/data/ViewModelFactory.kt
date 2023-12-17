@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.snapcat.di.Injection
 import com.snapcat.ui.screen.auth.AuthViewModel
+import com.snapcat.ui.screen.home.HomeViewModel
+import com.snapcat.ui.screen.journey.JourneyViewModel
+import com.snapcat.ui.screen.shop.ShopViewModel
 
 class ViewModelFactory private constructor(private val snapCatRepository: SnapCatRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -12,6 +15,12 @@ class ViewModelFactory private constructor(private val snapCatRepository: SnapCa
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(AuthViewModel::class.java)) {
             return AuthViewModel(snapCatRepository) as T
+        }else if(modelClass.isAssignableFrom(ShopViewModel::class.java)){
+            return ShopViewModel(snapCatRepository) as T
+        }else if(modelClass.isAssignableFrom(JourneyViewModel::class.java)){
+            return JourneyViewModel(snapCatRepository) as T
+        }else if(modelClass.isAssignableFrom(HomeViewModel::class.java)){
+            return HomeViewModel(snapCatRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

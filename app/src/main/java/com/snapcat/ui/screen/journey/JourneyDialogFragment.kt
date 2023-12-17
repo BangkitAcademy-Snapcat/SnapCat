@@ -7,21 +7,34 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
+import com.snapcat.data.ResultMessage
+import com.snapcat.data.ViewModelFactory
+import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.databinding.FragmentBottomCategoriesBinding
 import com.snapcat.databinding.FragmentBottomForgetPasswordBinding
 import com.snapcat.databinding.FragmentBottomJourneyBinding
 import com.snapcat.ui.screen.auth.verifikasi.VerifikasiDialogFragment
 import com.snapcat.ui.screen.home.CategoriesAdapter
 import com.snapcat.ui.screen.home.JourneyAdapter
+import com.snapcat.ui.screen.shop.ShopAdapter
+import com.snapcat.ui.screen.shop.ShopViewModel
+import kotlinx.coroutines.launch
 
 class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var binding: FragmentBottomJourneyBinding? = null
+    private lateinit var userDataStore: UserDataStore
+    private lateinit var journeyAdapter: JourneyAdapter
+    private val viewModel by viewModels<JourneyViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +46,8 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        journeyAdapter = JourneyAdapter()
+        userDataStore = UserDataStore.getInstance(requireContext())
         val bottomSheet: FrameLayout = dialog?.findViewById(com.google.android.material.R.id.design_bottom_sheet)!!
         bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
 
@@ -48,11 +63,35 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
             })
         }
 
-        val layoutManagerJourney = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        binding?.rvJourneyAll?.layoutManager = layoutManagerJourney
-        binding?.rvJourneyAll?.adapter = JourneyAdapter(requireActivity())
         binding?.closeLogin?.setOnClickListener {
             dismiss()
+        }
+        lifecycleScope.launch {
+            userDataStore.getUserData().collect {
+                viewModel.getAllHistories(it.token, it.userId).observe(viewLifecycleOwner) {
+                    if (it != null) {
+                        when (it) {
+                            is ResultMessage.Success -> {
+                                binding?.apply {
+                                    rvJourneyAll.layoutManager = LinearLayoutManager(context)
+                                    rvJourneyAll.setHasFixedSize(true)
+
+                                    // Akses properti data terlebih dahulu, kemudian akses dataItem
+                                    journeyAdapter.submitList(it.data.dataItem)
+
+                                    rvJourneyAll.adapter = journeyAdapter
+                                }
+                            }
+                            is ResultMessage.Error -> {
+                                // Handle error case if needed
+                            }
+                            else -> {
+                                // Handle other cases if needed
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }

@@ -1,34 +1,43 @@
 package com.snapcat.ui.screen.shop
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.snapcat.databinding.ItemJourneyBinding
+import com.snapcat.data.remote.response.Data
 import com.snapcat.databinding.ItemShopBinding
-import com.snapcat.ui.screen.journey.DetailJourneyDialogFragment
 
 
-class ShopAdapter(private val context: Context) :
-    RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
+class ShopAdapter: ListAdapter<Data, ShopAdapter.MyViewHolder>(DIFF_CALLBACK){
 
-    class ViewHolder(val binding: ItemShopBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(context)
-        return ViewHolder(ItemShopBinding.inflate(inflater, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding = ItemShopBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder.binding) {
-            root.setOnClickListener {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val review = getItem(position)
+        holder.bind(review)
+    }
+
+    class MyViewHolder(val binding: ItemShopBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Data){
+            binding.apply{
+                titleItemShop.text = data.name
+                addressItemShop.text = data.address
             }
-
         }
-
-
     }
 
-    override fun getItemCount() = 10
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Data>() {
+            override fun areItemsTheSame(oldItem: Data, newItem: Data): Boolean {
+                return oldItem == newItem
+            }
+            override fun areContentsTheSame(oldItem: Data, newItem: Data): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }

@@ -1,24 +1,16 @@
-package com.snapcat.ui.screen.journey
+package com.snapcat.ui.screen.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
-import com.snapcat.databinding.FragmentBottomCategoriesBinding
 import com.snapcat.databinding.FragmentBottomDetailJourneyBinding
-import com.snapcat.databinding.FragmentBottomForgetPasswordBinding
-import com.snapcat.databinding.FragmentBottomJourneyBinding
 import com.snapcat.ui.screen.auth.verifikasi.VerifikasiDialogFragment
-import com.snapcat.ui.screen.home.CategoriesAdapter
-import com.snapcat.ui.screen.home.JourneyAdapter
 
 class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 

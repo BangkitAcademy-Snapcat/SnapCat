@@ -12,7 +12,6 @@ class Welcome : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)

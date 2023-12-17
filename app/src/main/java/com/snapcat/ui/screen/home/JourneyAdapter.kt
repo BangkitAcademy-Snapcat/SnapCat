@@ -1,45 +1,43 @@
 package com.snapcat.ui.screen.home
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.snapcat.data.remote.response.DataItem
 import com.snapcat.databinding.ItemJourneyBinding
-import com.snapcat.ui.screen.journey.DetailJourneyDialogFragment
 
 
-class JourneyAdapter(private val context: Context) :
-    RecyclerView.Adapter<JourneyAdapter.ViewHolder>() {
+class JourneyAdapter: ListAdapter<DataItem, JourneyAdapter.MyViewHolder>(DIFF_CALLBACK){
 
-    class ViewHolder(val binding: ItemJourneyBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(context)
-        return ViewHolder(ItemJourneyBinding.inflate(inflater, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding = ItemJourneyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder.binding) {
-            root.setOnClickListener {
-                val detailDialog = DetailJourneyDialogFragment()
-                detailDialog.show(
-                    (context as AppCompatActivity).supportFragmentManager,
-                    "DetailJourneyDialog"
-                )
-            }
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val review = getItem(position)
+        holder.bind(review)
+    }
 
-            detailJourney.setOnClickListener {
-                val detailDialog = DetailJourneyDialogFragment()
-                detailDialog.show(
-                    (context as AppCompatActivity).supportFragmentManager,
-                    "DetailJourneyDialog"
-                )
+    class MyViewHolder(val binding: ItemJourneyBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: DataItem){
+            binding.apply{
+                titleItemJourney.text = data.createdAt
+                timeItemJourney.text = data.createdAt
             }
         }
-
-
     }
 
-    override fun getItemCount() = 4
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataItem>() {
+            override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+                return oldItem == newItem
+            }
+            override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }

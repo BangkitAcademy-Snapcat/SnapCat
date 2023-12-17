@@ -1,9 +1,13 @@
 package com.snapcat.data
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
 import com.snapcat.data.local.database.SnapCatDao
 import com.snapcat.data.model.User
+import com.snapcat.data.remote.response.ResponseGetAllHistories
+import com.snapcat.data.remote.response.ResponseGetAllShop
+import com.snapcat.data.remote.response.ResponseGetUser
 import com.snapcat.data.remote.retrofit.ApiService
 import retrofit2.HttpException
 import java.io.IOException
@@ -51,20 +55,46 @@ class SnapCatRepository (
             emit(ResultMessage.Error(Exception("No network connection")))
         }
     }
-//
-//    fun history() = liveData {
-//        try {
-//            emit(ResultMessage.Loading)
-//            val response = apiService.history()
-//            emit(ResultMessage.Success(response))
-//        } catch (e: HttpException) {
-//            val jsonInString = e.response()?.errorBody()?.string()
-//            emit(ResultMessage.Error(e))
-//        } catch (e: IOException) {
-//            emit(ResultMessage.Error(Exception("No network connection")))
-//        }
-//    }
-//
+
+    fun getAllShop(token: String, id: String) = liveData {
+        try {
+            emit(ResultMessage.Loading)
+            val response = apiService.getAllShop("Bearer $token", id)
+            emit(ResultMessage.Success(response))
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            emit(ResultMessage.Error(e))
+        } catch (e: IOException) {
+            emit(ResultMessage.Error(Exception("No network connection")))
+        }
+    }
+
+    fun getAllHistories(token: String, id: String): LiveData<ResultMessage<ResponseGetAllHistories>> = liveData {
+        try {
+            emit(ResultMessage.Loading)
+            val response = apiService.getAllHistories("Bearer $token", id)
+            emit(ResultMessage.Success(response))
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            emit(ResultMessage.Error(e))
+        } catch (e: IOException) {
+            emit(ResultMessage.Error(Exception("No network connection")))
+        }
+    }
+
+    fun getUser(token: String, id: String): LiveData<ResultMessage<ResponseGetUser>> = liveData {
+        try {
+            emit(ResultMessage.Loading)
+            val response = apiService.getUser(token, id)
+            emit(ResultMessage.Success(response))
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            emit(ResultMessage.Error(e))
+        } catch (e: IOException) {
+            emit(ResultMessage.Error(Exception("No network connection")))
+        }
+    }
+
 //    fun historyById(id: String) = liveData {
 //        try {
 //            emit(ResultMessage.Loading)
@@ -78,18 +108,6 @@ class SnapCatRepository (
 //        }
 //    }
 //
-//    fun shop() = liveData {
-//        try {
-//            emit(ResultMessage.Loading)
-//            val response = apiService.shop()
-//            emit(ResultMessage.Success(response))
-//        } catch (e: HttpException) {
-//            val jsonInString = e.response()?.errorBody()?.string()
-//            emit(ResultMessage.Error(e))
-//        } catch (e: IOException) {
-//            emit(ResultMessage.Error(Exception("No network connection")))
-//        }
-//    }
 //
 //    fun shopById(id: String) = liveData {
 //        try {

@@ -55,9 +55,9 @@ class ProfileFragment : Fragment() {
 
         binding.buttonProfile3.setOnClickListener {
             lifecycleScope.launch {
-                userDataStore.deleteSession()
                 startActivity(Intent(requireActivity(), Welcome::class.java))
                 requireActivity().finish()
+                userDataStore.deleteSession()
             }
         }
 
