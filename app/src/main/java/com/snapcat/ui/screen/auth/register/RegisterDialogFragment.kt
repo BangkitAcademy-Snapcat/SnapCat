@@ -102,14 +102,16 @@ class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener
                 showLoading(true)
             }
             is ResultMessage.Success -> {
-                ToastUtils.showToast(requireActivity(), "Regsiter berhasil")
+                ToastUtils.showToast(requireActivity(), "Register berhasil")
                 val response = ResponseRegister(data = result.data.data, message = result.data.message)
                 showLoading(false)
+                dismiss()
+
 
             }
             is ResultMessage.Error -> {
                 val exception = result.exception
-                val errorMessage = exception.message ?: "Regsiter gagal, silahkan coba lagi"
+                val errorMessage = exception.message ?: "Register gagal, silahkan coba lagi"
                 ToastUtils.showToast(requireContext(), errorMessage)
                 showLoading(false)
             }

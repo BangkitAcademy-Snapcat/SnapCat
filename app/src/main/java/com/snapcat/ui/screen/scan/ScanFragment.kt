@@ -57,6 +57,7 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         cameraProviderResult.launch(Manifest.permission.CAMERA)
     }
 
@@ -108,7 +109,6 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
             val cameraProvider = cameraProviderFuture.get()
 
 
-            val rotation = binding.cameraPreview.display.rotation
             val resolutionSelector = ResolutionSelector.Builder().setAspectRatioStrategy(
                 AspectRatioStrategy(
                     AspectRatio.RATIO_16_9,
@@ -119,7 +119,6 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
 
             preview = Preview.Builder()
                 .setResolutionSelector(resolutionSelector)
-                .setTargetRotation(rotation)
                 .build()
                 .also {
                     it.setSurfaceProvider(binding.cameraPreview.surfaceProvider)

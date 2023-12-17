@@ -1,19 +1,24 @@
 package com.snapcat.ui.screen.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.databinding.FragmentProfileBinding
-import com.snapcat.databinding.FragmentScanBinding
 import com.snapcat.ui.screen.about.AboutAppFragment
 import com.snapcat.ui.screen.journey.JourneyDialogFragment
+import com.snapcat.ui.screen.welcome.Welcome
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var userDataStore: UserDataStore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +30,13 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        userDataStore = UserDataStore.getInstance(requireContext())
+
+        lifecycleScope.launch {
+            userDataStore.getUserData().collect{
+                binding.username.text = it.username
+            }
+        }
         binding.buttonProfile1.setOnClickListener {
             val journeyDialog = JourneyDialogFragment()
             journeyDialog.show(
@@ -40,5 +52,14 @@ class ProfileFragment : Fragment() {
                 "AboutAppFragment"
             )
         }
+
+        binding.buttonProfile3.setOnClickListener {
+            lifecycleScope.launch {
+                userDataStore.deleteSession()
+                startActivity(Intent(requireActivity(), Welcome::class.java))
+                requireActivity().finish()
+            }
+        }
+
     }
 }

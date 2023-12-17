@@ -23,7 +23,7 @@ class ApiConfig {
                 .addInterceptor(authInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://snapcat-api-rf6hxbwzjq-uc.a.run.app/")
+                .baseUrl("https://snapcat-api-fgyzs52kkq-uc.a.run.app/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

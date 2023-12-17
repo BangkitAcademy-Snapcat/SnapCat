@@ -43,14 +43,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <com.snapcat.ui.customview.CustomTextView
             android:id="@+id/desc_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat_regular"
-            android:justificationMode="inter_word"
             android:text="@string/desc1_onboarding"
             android:textAlignment="textStart"
             android:textSize="15sp"

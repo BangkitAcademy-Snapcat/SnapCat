@@ -12,12 +12,14 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
 import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
+import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.data.model.User
 import com.snapcat.data.remote.response.ResponseLogin
 import com.snapcat.databinding.FragmentBottomLoginBinding
@@ -26,6 +28,7 @@ import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.auth.forget.ForgetDialogFragment
 import com.snapcat.ui.screen.auth.register.RegisterDialogFragment
 import com.snapcat.util.ToastUtils
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Response
 
@@ -36,6 +39,8 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
         ViewModelFactory.getInstance(requireActivity())
     }
 
+    private lateinit var userDataStore: UserDataStore
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +50,7 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        userDataStore = UserDataStore.getInstance(requireContext())
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         dialog.setOnShowListener {
             val bottomSheet: FrameLayout = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet)!!
@@ -117,7 +123,17 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
                 ToastUtils.showToast(requireActivity(), "Login berhasil")
                 val response = ResponseLogin(data = result.data.data, message = result.data.message)
 
+                val userId: String? = response.data.user.id
+                val username: String? = response.data.user.username
+                val email: String? = response.data.user.email
+                val token: String = response.data.accessToken
+                lifecycleScope.launch {
+                    userDataStore.saveUserData(userId, username, token, email)
+                }
                 showLoading(false)
+                dismiss()
+                startActivity(Intent(requireContext(), MainActivity::class.java))
+                requireActivity().finish()
 
             }
             is ResultMessage.Error -> {

@@ -19,11 +19,8 @@ class SnapCatRepository (
             val response = apiService.register(user)
             emit(ResultMessage.Success(response))
         } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-//            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-//            val errorMessage = errorBody?.message
-//            emit(ResultMessage.Error(Exception(errorMessage)))
-            emit(ResultMessage.Error(e))
+            val errorBody = e.response()?.errorBody()?.string()
+            emit(ResultMessage.Error(Exception(errorBody ?: "Unknown error")))
         } catch (e: IOException) {
             emit(ResultMessage.Error(Exception("No network connection")))
         }
@@ -35,8 +32,8 @@ class SnapCatRepository (
             val response = apiService.login(user)
             emit(ResultMessage.Success(response))
         } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            emit(ResultMessage.Error(e))
+            val errorBody = e.response()?.errorBody()?.string()
+            emit(ResultMessage.Error(Exception(errorBody ?: "Unknown error")))
         } catch (e: IOException) {
             emit(ResultMessage.Error(Exception("No network connection")))
         }
