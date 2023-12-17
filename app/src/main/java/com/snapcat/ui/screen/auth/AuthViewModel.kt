@@ -10,4 +10,6 @@ class AuthViewModel(private val repository: SnapCatRepository) : ViewModel() {
     fun login(user: User) = repository.login(user)
 
     fun register(user: User) = repository.register(user)
+
+    fun forgetPassword(email: User) = repository.forgotPassword(email)
 }

@@ -20,8 +20,8 @@ interface ApiService {
     @POST("api/users/login")
     suspend fun login(@Body requestBody: User): ResponseLogin
 
-    @POST("api/users/forgot-password/{email}")
-    suspend fun forgotPassword(@Path("email") email: String): Response<ResponseBody>
+    @POST("api/users/forgot-password/")
+    suspend fun forgotPassword(@Body email: User): Response<ResponseBody>
 
     @GET("api/users/{id}")
     suspend fun getUserById(@Path("id") id: String): Response<ResponseBody>

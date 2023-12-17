@@ -39,18 +39,18 @@ class SnapCatRepository (
         }
     }
 
-//    fun forgotPassword(email: String) = liveData {
-//        try {
-//            emit(ResultMessage.Loading)
-//            val response = apiService.forgotPassword(email)
-//            emit(ResultMessage.Success(response))
-//        } catch (e: HttpException) {
-//            val jsonInString = e.response()?.errorBody()?.string()
-//            emit(ResultMessage.Error(e))
-//        } catch (e: IOException) {
-//            emit(ResultMessage.Error(Exception("No network connection")))
-//        }
-//    }
+    fun forgotPassword(email: User) = liveData {
+        try {
+            emit(ResultMessage.Loading)
+            val response = apiService.forgotPassword(email)
+            emit(ResultMessage.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            emit(ResultMessage.Error(Exception(errorBody ?: "Unknown error")))
+        } catch (e: IOException) {
+            emit(ResultMessage.Error(Exception("No network connection")))
+        }
+    }
 //
 //    fun history() = liveData {
 //        try {
