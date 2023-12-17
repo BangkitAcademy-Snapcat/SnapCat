@@ -3,148 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutIntro"
+    android:padding="0dp"
+    android:layout_margin="0dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_hintXX"
     tools:context=".ui.screen.onboarding.OnBoarding">
 
-    <ImageView
-        android:id="@+id/image_onboarding"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/introViewPager"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:layout_marginBottom="350dp"
-        android:padding="20dp"
-        android:src="@drawable/onboarding_1"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/tabs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        android:background="?attr/colorSurfaceContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabBackground="@drawable/tab_pager_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:tabPaddingEnd="@dimen/_7sdp"
+        app:tabPaddingStart="@dimen/_7sdp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content_on_boarding"
-        android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:background="@drawable/rounded_rectangle_top_white"
-        android:paddingTop="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+    <TextView
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:fontFamily="@font/montserrat_regular"
+        android:paddingStart="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:text="Back"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tabs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/introViewPager" />
 
-        <TextView
-            android:id="@+id/title_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:fontFamily="@font/abhayalibre_regular"
-            android:text="Explore your cat's breed!"
-            android:textAlignment="textStart"
-            android:textColor="@color/black"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/desc_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:justificationMode="inter_word"
-            android:text="@string/desc1_onboarding"
-            android:textAlignment="textStart"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_content" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/sign_up_content"
-            style="@style/CustomButton"
-            android:layout_marginBottom="7dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Sign Up Account"
-            android:textSize="15sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/log_in_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/log_in_content"
-            style="@style/CustomButton"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Log In Account"
-            android:textSize="15sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:translationZ="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/button_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:paddingHorizontal="30dp"
-                android:text="Back"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="20dp"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_next"
-                app:layout_constraintStart_toEndOf="@+id/button_back"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/dot1"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/selected_dot" />
-
-                <ImageView
-                    android:id="@+id/dot2"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/default_dot" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/button_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:paddingHorizontal="30dp"
-                android:text="Next"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:fontFamily="@font/montserrat_regular"
+        android:paddingStart="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:text="Next"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tabs"
+        app:layout_constraintEnd_toEndOf="@+id/tabs"
+        app:layout_constraintTop_toTopOf="@+id/tabs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

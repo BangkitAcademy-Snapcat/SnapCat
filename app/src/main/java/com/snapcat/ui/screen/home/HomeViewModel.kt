@@ -5,7 +5,6 @@ import com.snapcat.data.SnapCatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: SnapCatRepository) : ViewModel() {
+class HomeViewModel(private val repository: SnapCatRepository) : ViewModel() {
 
 }

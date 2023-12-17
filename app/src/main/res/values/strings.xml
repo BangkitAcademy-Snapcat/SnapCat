@@ -3,7 +3,8 @@
     <string name="image_welcome">Image Welcome</string>
     <string name="get_started">Get Started</string>
     <string name="button_arrow">Button Arrow</string>
-    <string name="title_on_boarding">Explore your cat\'s breed!</string>
+    <string name="title_on_boarding1">Explore your cat\'s breed!</string>
+    <string name="title_on_boarding2">Discover the cat’s world with Snapcat</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras neque orci, rhoncus vitae malesuada sit amet, ultricies ac erat. Vestibulum euismod risus at vestibulum sagittis.</string>
     <string name="email_empty">Email Empty</string>
     <string name="invalid_email_format">Invalid Email</string>
@@ -20,4 +21,7 @@
     <string name="desc2_onboarding">Snapcat opens the door to your educational adventures. Let\'s start a new adventure with Snapcat! 🐾✨</string>
     <string name="welcome_desc">Welcome to Snapcat, the cat lover\'s true companion! We are proud to present this innovative app, where every snap of your cat becomes a doorway into a vast world of knowledge.</string>
     <string name="welcome">Welcome to SnapCat!</string>
+
+    <string name="tab_text_1">Home</string>
+    <string name="tab_text_2">Profile</string>
 </resources>

@@ -11,24 +11,30 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
 import com.snapcat.data.ResultMessage
+import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.model.User
 import com.snapcat.data.remote.response.ResponseLogin
 import com.snapcat.databinding.FragmentBottomLoginBinding
 import com.snapcat.ui.screen.MainActivity
 import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.auth.forget.ForgetDialogFragment
+import com.snapcat.ui.screen.auth.register.RegisterDialogFragment
 import com.snapcat.util.ToastUtils
 import okhttp3.ResponseBody
 import retrofit2.Response
 
-class LoginDialogFragment(private val authViewModel: AuthViewModel) : BottomSheetDialogFragment(), View.OnClickListener {
+class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var binding: FragmentBottomLoginBinding? = null
+    private val viewModel by viewModels<AuthViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +69,14 @@ class LoginDialogFragment(private val authViewModel: AuthViewModel) : BottomShee
         binding?.forgetPassword?.setOnClickListener(this)
         binding?.login?.setOnClickListener(this)
         binding?.forgetPassword?.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        binding?.closeLogin?.setOnClickListener {
+            dismiss()
+        }
+        binding?.toSignUp?.setOnClickListener {
+            dismiss()
+            val registerDialog = RegisterDialogFragment()
+            registerDialog.show((context as AppCompatActivity).supportFragmentManager, "RegisterDialog")
+        }
     }
 
     override fun onDestroyView() {
@@ -88,7 +102,7 @@ class LoginDialogFragment(private val authViewModel: AuthViewModel) : BottomShee
 
             val data = User(email = email, password = password)
 
-            authViewModel.login(data).observe(requireActivity()) { result ->
+            viewModel.login(data).observe(requireActivity()) { result ->
                 handleResult(result)
             }
         }
