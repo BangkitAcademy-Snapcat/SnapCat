@@ -1,9 +1,6 @@
 package com.snapcat.data.remote.retrofit
 
-import com.snapcat.BuildConfig
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -37,21 +34,17 @@ object ApiConfig {
     private const val BASE_URL_CC = "https://snapcat-api-fgyzs52kkq-uc.a.run.app/"
     private const val BASE_URL_ML = "https://snapcat-image-fgyzs52kkq-uc.a.run.app/"
 
-    private val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    private val loggingInterceptor =
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
-    private val authInterceptor = Interceptor { chain ->
-        val req = chain.request()
-        val requestHeaders = req.newBuilder()
-            .build()
-        chain.proceed(requestHeaders)
-    }
+
     private val client = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(loggingInterceptor)
-        .addInterceptor(authInterceptor)
         .build()
+
     fun getApiServiceCC(): ApiServiceCC {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL_CC)
@@ -72,7 +65,10 @@ object ApiConfig {
         return retrofit.create(ApiServiceML::class.java)
     }
 
-    fun getCombinedApiService(apiServiceCC: ApiServiceCC, apiServiceML: ApiServiceML): CombinedApiService {
+    fun getCombinedApiService(
+        apiServiceCC: ApiServiceCC,
+        apiServiceML: ApiServiceML,
+    ): CombinedApiService {
         return CombinedApiServiceImpl(apiServiceCC, apiServiceML)
     }
 }
