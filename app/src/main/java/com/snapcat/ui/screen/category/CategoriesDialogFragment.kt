@@ -9,18 +9,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snapcat.R
+import com.snapcat.data.model.CatCategory
+import com.snapcat.data.remote.response.Data
 import com.snapcat.databinding.FragmentBottomCategoriesBinding
 import com.snapcat.ui.screen.auth.verifikasi.VerifikasiDialogFragment
 import com.snapcat.ui.screen.home.CategoriesAdapter
+import com.snapcat.ui.screen.home.CategoriesAdapter2
+import com.snapcat.ui.screen.shop.ShopAdapter
 
 class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var binding: FragmentBottomCategoriesBinding? = null
     private var isFunctionEnabled = false
+    private lateinit var categoriesAdapter2: CategoriesAdapter2
+    private val filteredCategories: MutableList<CatCategory> = mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -31,6 +38,7 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        categoriesAdapter2 = CategoriesAdapter2(filteredCategories)
         val bottomSheet: FrameLayout =
             dialog?.findViewById(com.google.android.material.R.id.design_bottom_sheet)!!
         bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
@@ -46,12 +54,28 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
         }
+        filteredCategories.addAll(getListHeroes())
 
         val spanCount = 3
         val layoutManagerCategory = GridLayoutManager(requireActivity(), spanCount)
         layoutManagerCategory.orientation = GridLayoutManager.VERTICAL
         binding?.rvCategoriesAll?.layoutManager = layoutManagerCategory
-        binding?.rvCategoriesAll?.adapter = CategoriesAdapter(requireActivity())
+        binding?.rvCategoriesAll?.adapter = categoriesAdapter2
+
+        binding?.searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filteredCategories.clear()
+                filteredCategories.addAll(filteredCategories.filter { data ->
+                    data.name.contains(newText.orEmpty(), ignoreCase = true)
+                })
+                categoriesAdapter2.notifyDataSetChanged()
+                return true
+            }
+        })
         binding?.closeLogin?.setOnClickListener {
             dismiss()
         }
@@ -81,6 +105,17 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
 
             }
         }
+    }
+
+    private fun getListHeroes(): ArrayList<CatCategory> {
+        val dataName = resources.getStringArray(R.array.data_name)
+        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
+        val listHero = ArrayList<CatCategory>()
+        for (i in dataName.indices) {
+            val hero = CatCategory(dataName[i], dataPhoto.getResourceId(i, -1))
+            listHero.add(hero)
+        }
+        return listHero
     }
 
     private fun showLoading(isLoading: Boolean) {

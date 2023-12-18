@@ -51,7 +51,7 @@
             android:background="@color/transparent"
             android:contentDescription="back"
             android:padding="@dimen/_8sdp"
-            android:src="@drawable/baseline_search_24"
+            style="@style/Search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/title"
             app:layout_constraintTop_toTopOf="parent"

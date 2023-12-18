@@ -10,9 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.snapcat.R
 import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
+import com.snapcat.data.model.CatCategory
 import com.snapcat.databinding.FragmentHomeBinding
 import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.category.CategoriesDialogFragment
@@ -25,6 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var userDataStore: UserDataStore
     private lateinit var journeyAdapter: JourneyAdapter
+    private val list = ArrayList<CatCategory>()
     private val viewModel by viewModels<JourneyViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
@@ -50,11 +53,11 @@ class HomeFragment : Fragment() {
                 binding.username.text = it.username
             }
         }
-
+        list.addAll(getListHeroes())
         val layoutManagerCategory =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCategories.layoutManager = layoutManagerCategory
-        binding.rvCategories.adapter = CategoriesAdapter(requireActivity())
+        binding.rvCategories.adapter = CategoriesAdapter(list)
 
         val layoutManagerJourney =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
@@ -117,5 +120,16 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun getListHeroes(): ArrayList<CatCategory> {
+        val dataName = resources.getStringArray(R.array.data_name)
+        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
+        val listHero = ArrayList<CatCategory>()
+        for (i in dataName.indices) {
+            val hero = CatCategory(dataName[i], dataPhoto.getResourceId(i, -1))
+            listHero.add(hero)
+        }
+        return listHero
     }
 }

@@ -25,4 +25,42 @@
     <string name="tab_text_1">Home</string>
     <string name="tab_text_2">Profile</string>
     <string name="data_invalid">Data invalid</string>
+
+
+    <string-array name="data_name">
+        <item>Abyssinian</item>
+        <item>American Bobtail</item>
+        <item>American Shorthair</item>
+        <item>Bengal</item>
+        <item>Birman</item>
+        <item>Bombay</item>
+        <item>British Shorthair</item>
+        <item>Egyptian Mau</item>
+        <item>Maine Coon</item>
+        <item>Persian</item>
+        <item>Ragdoll</item>
+        <item>Russian Blue</item>
+        <item>Siamese</item>
+        <item>Sphnyx</item>
+        <item>Tuxedo</item>
+    </string-array>
+
+    <integer-array name="data_photo">
+        <item>@drawable/abyssinian</item>
+        <item>@drawable/american_bobtail</item>
+        <item>@drawable/american_shorthair</item>
+        <item>@drawable/bengal</item>
+        <item>@drawable/birman</item>
+        <item>@drawable/bombay</item>
+        <item>@drawable/british_shorthair</item>
+        <item>@drawable/egyptian_mau</item>
+        <item>@drawable/maine_coon</item>
+        <item>@drawable/persian</item>
+        <item>@drawable/ragdoll</item>
+        <item>@drawable/russian_blue</item>
+        <item>@drawable/siamese</item>
+        <item>@drawable/sphnyx</item>
+        <item>@drawable/tuxedo</item>
+    </integer-array>
+
 </resources>

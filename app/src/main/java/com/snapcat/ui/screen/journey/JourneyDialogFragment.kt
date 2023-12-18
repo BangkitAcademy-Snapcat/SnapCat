@@ -32,6 +32,7 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
     private var binding: FragmentBottomJourneyBinding? = null
     private lateinit var userDataStore: UserDataStore
     private lateinit var journeyAdapter: JourneyAdapter
+    private var isFunctionEnabled = false
     private val viewModel by viewModels<JourneyViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
@@ -66,6 +67,13 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
         binding?.closeLogin?.setOnClickListener {
             dismiss()
         }
+
+        binding?.buttonSearch?.setOnClickListener {
+            // Toggle status on/off
+            isFunctionEnabled = !isFunctionEnabled
+            binding?.cardView?.visibility = if (isFunctionEnabled) View.VISIBLE else View.GONE
+        }
+
         lifecycleScope.launch {
             userDataStore.getUserData().collect {
                 viewModel.getAllHistories(it.token, it.userId).observe(viewLifecycleOwner) {

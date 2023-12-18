@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.snapcat.data.remote.response.DataItem
 import com.snapcat.databinding.ItemJourneyBinding
 
@@ -24,8 +25,11 @@ class JourneyAdapter: ListAdapter<DataItem, JourneyAdapter.MyViewHolder>(DIFF_CA
     class MyViewHolder(val binding: ItemJourneyBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DataItem){
             binding.apply{
-                titleItemJourney.text = data.createdAt
-                timeItemJourney.text = data.createdAt
+                titleItemJourney.text = data.breed
+                timeItemJourney.text = "${data.createdAt.take(10)} - ${data.createdAt.substring(11, 19)}"
+                Glide.with(itemView.context)
+                    .load(data.image) // URL Gambar
+                    .into(imgPhotoJourney)
             }
         }
     }
