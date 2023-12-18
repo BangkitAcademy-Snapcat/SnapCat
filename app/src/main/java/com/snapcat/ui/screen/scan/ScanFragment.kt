@@ -2,9 +2,9 @@ package com.snapcat.ui.screen.scan
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,19 +19,21 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
-import com.snapcat.data.model.History
 import com.snapcat.data.remote.response.DataPrediction
 import com.snapcat.data.remote.response.ResponsePrediction
 import com.snapcat.databinding.FragmentScanBinding
 import com.snapcat.util.Object
 import com.snapcat.util.ToastUtils
-import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ScanFragment : Fragment(), OnDialogDismissListener {
 
@@ -42,6 +44,8 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
     private var preview: Preview? = null
     private var isFrontCameraSelected = false
     private lateinit var userDataStore: UserDataStore
+    private val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
+    private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
 
     private val viewModelFactory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(requireActivity())
@@ -63,7 +67,9 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
-        uri?.let { handleGalleryResult(it) }
+        if (uri != null) {
+            handleGalleryResult(uri)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -203,13 +209,14 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
     }
 
     private fun handleResult(result: ResultMessage<ResponsePrediction>) {
-        releaseCamera()
 
         when (result) {
             is ResultMessage.Loading -> {
-                 showLoading(true)
+                showLoading(true)
             }
+
             is ResultMessage.Success -> {
+                releaseCamera()
                 ToastUtils.showToast(requireActivity(), "Berhasil")
                 showLoading(false)
 
@@ -218,7 +225,8 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
                     dataResult.catBreedPredictions,
                     dataResult.uploadImage,
                     dataResult.catBreedDescription,
-                    dataResult.confidence)
+                    dataResult.confidence
+                )
 
                 Log.w("Scan Fragment", data.toString())
                 val args = Bundle().apply {
@@ -233,13 +241,16 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
                     (context as AppCompatActivity).supportFragmentManager,
                     "ResultScanDialog"
                 )
+
             }
+
             is ResultMessage.Error -> {
                 val exception = result.exception
                 val errorMessage = exception.message ?: "gagal, silahkan coba lagi"
                 ToastUtils.showToast(requireContext(), errorMessage)
-                 showLoading(false)
+                showLoading(false)
             }
+
             else -> {
             }
         }
@@ -247,30 +258,39 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
 
     private fun handleGalleryResult(uri: Uri?) {
         if (uri != null) {
-            val filePath = getRealPathFromUri(uri)
-            if (!filePath.isNullOrBlank()) {
-                val file = File(filePath)
-                viewModel.prediction(file).observe(requireActivity()) {
-                    handleResult(it)
-                }
-            } else {
-                Log.e("ScanFragment", "Failed to retrieve file path from gallery result.")
+            Log.d("ScanFragment", "Gallery result URI: $uri")
+            val file = uriToFile(uri, requireActivity())
+            viewModel.prediction(file).observe(requireActivity()) {
+                handleResult(it)
             }
+
         } else {
             Log.e("ScanFragment", "Failed to retrieve URI from gallery result.")
         }
     }
 
-    private fun getRealPathFromUri(uri: Uri): String? {
-        val cursor = context?.contentResolver?.query(uri, null, null, null, null)
-        return cursor?.use {
-            it.moveToFirst()
-            val columnIndex = it.getColumnIndex(MediaStore.Images.Media.DATA)
-            columnIndex.takeIf { it != -1 }?.let { _ ->
-                it.getString(columnIndex)
-            }
-        }
+
+    private fun createCustomTempFile(context: Context): File {
+        val filesDir = context.externalCacheDir
+        return File.createTempFile(timeStamp, ".jpg", filesDir)
     }
+
+    private fun uriToFile(imageUri: Uri, context: Context): File {
+        val myFile = createCustomTempFile(context)
+        val inputStream = context.contentResolver.openInputStream(imageUri) as InputStream
+        val outputStream = FileOutputStream(myFile)
+        val buffer = ByteArray(1024)
+        var length: Int
+        while (inputStream.read(buffer).also { length = it } > 0) outputStream.write(
+            buffer,
+            0,
+            length
+        )
+        outputStream.close()
+        inputStream.close()
+        return myFile
+    }
+
 
     private fun toggleFlash() {
         cameraProviderFuture.addListener({
