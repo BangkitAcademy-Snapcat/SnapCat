@@ -44,15 +44,23 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         journeyAdapter = JourneyAdapter()
         userDataStore = UserDataStore.getInstance(requireContext())
+
         lifecycleScope.launch {
             userDataStore.getUserData().collect{
                 binding.username.text = it.username
             }
         }
+
         val layoutManagerCategory =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCategories.layoutManager = layoutManagerCategory
         binding.rvCategories.adapter = CategoriesAdapter(requireActivity())
+
+        val layoutManagerJourney =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.rvJourney.layoutManager = layoutManagerJourney
+        binding.rvJourney.adapter = JourneyAdapter()
+        binding.rvJourney.isNestedScrollingEnabled = false
 
         binding.showAllCategories.setOnClickListener {
             val categoriesDialog = CategoriesDialogFragment()

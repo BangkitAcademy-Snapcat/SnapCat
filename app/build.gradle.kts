@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -88,6 +89,9 @@ dependencies {
 //    Image Loading
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    ksp("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("io.coil-kt:coil:0.11.0")
 
 //    Data Store
     implementation("androidx.datastore:datastore-preferences:1.0.0")
