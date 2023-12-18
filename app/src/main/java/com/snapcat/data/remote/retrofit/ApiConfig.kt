@@ -39,20 +39,20 @@ object ApiConfig {
 
     private val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
-    fun getApiServiceCC(): ApiServiceCC {
-        val authInterceptor = Interceptor { chain ->
-            val req = chain.request()
-            val requestHeaders = req.newBuilder()
-                .build()
-            chain.proceed(requestHeaders)
-        }
-        val client = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(authInterceptor)
+    private val authInterceptor = Interceptor { chain ->
+        val req = chain.request()
+        val requestHeaders = req.newBuilder()
             .build()
+        chain.proceed(requestHeaders)
+    }
+    private val client = OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(loggingInterceptor)
+        .addInterceptor(authInterceptor)
+        .build()
+    fun getApiServiceCC(): ApiServiceCC {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL_CC)
             .addConverterFactory(GsonConverterFactory.create())
@@ -63,19 +63,6 @@ object ApiConfig {
     }
 
     fun getApiServiceML(): ApiServiceML {
-        val authInterceptor = Interceptor { chain ->
-            val req = chain.request()
-            val requestHeaders = req.newBuilder()
-                .build()
-            chain.proceed(requestHeaders)
-        }
-        val client = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(authInterceptor)
-            .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL_ML)
             .addConverterFactory(GsonConverterFactory.create())
