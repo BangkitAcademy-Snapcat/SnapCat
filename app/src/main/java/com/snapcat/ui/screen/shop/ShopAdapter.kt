@@ -1,7 +1,10 @@
 package com.snapcat.ui.screen.shop
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +29,10 @@ class ShopAdapter: ListAdapter<Data, ShopAdapter.MyViewHolder>(DIFF_CALLBACK){
             binding.apply{
                 titleItemShop.text = data.name
                 addressItemShop.text = data.address
+                detailJourney.setOnClickListener{
+                    it.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(data.urlShop)))
+                }
+
             }
         }
     }

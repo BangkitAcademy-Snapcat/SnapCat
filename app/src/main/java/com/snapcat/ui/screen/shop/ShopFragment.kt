@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,14 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
+import com.snapcat.data.remote.response.Data
 import com.snapcat.databinding.FragmentShopBinding
 import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.home.JourneyAdapter
 import com.snapcat.util.ToastUtils
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class ShopFragment : Fragment() {
-
     private lateinit var binding: FragmentShopBinding
     private var isFunctionEnabled = false
     private lateinit var shopAdapter: ShopAdapter
@@ -45,7 +47,8 @@ class ShopFragment : Fragment() {
 
         binding.buttonSearch.setOnClickListener {
             isFunctionEnabled = !isFunctionEnabled
-            binding.linearLayout5.visibility = if (isFunctionEnabled) View.VISIBLE else View.GONE
+            binding.cardView.visibility = if (isFunctionEnabled) View.VISIBLE else View.GONE
+            binding.heroShop.visibility = if (isFunctionEnabled) View.GONE else View.VISIBLE
         }
 
         lifecycleScope.launch {
@@ -59,6 +62,20 @@ class ShopFragment : Fragment() {
                                     rvShop.setHasFixedSize(true)
                                     shopAdapter.submitList(it.data.data)
                                     rvShop.adapter = shopAdapter
+                                    binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+                                        override fun onQueryTextSubmit(query: String?): Boolean {
+                                            return false
+                                        }
+
+                                        override fun onQueryTextChange(newText: String?): Boolean {
+                                            var xx: List<Data>//this is it.data.data
+                                            xx = it.data.data.filter { data ->
+                                                data.name.contains(newText.orEmpty(), ignoreCase = true)
+                                            }
+                                            shopAdapter.submitList(xx)
+                                            return true
+                                        }
+                                    })
                                 }
                             }
 
@@ -71,16 +88,6 @@ class ShopFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun setUpRecyclerView() {
-        val spanCount = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 3 else 2
-
-//        val itemDecoration = GridSpacingItemDecoration(spanCount, 10, true)
-//        val layoutManagerShop = GridLayoutManager(requireContext(), spanCount)
-//        binding.rvShop.layoutManager = layoutManagerShop
-//        binding.rvShop.addItemDecoration(itemDecoration)
-//        binding.rvShop.adapter = ShopAdapter(requireActivity())
     }
 }
 

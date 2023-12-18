@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ResponseGetAllShop(
 
 	@field:SerializedName("data")
-	val data: List<Data>,
+	var data: List<Data>,
 
 	@field:SerializedName("message")
 	val message: String
