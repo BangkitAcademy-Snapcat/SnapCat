@@ -18,16 +18,17 @@ import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.data.remote.response.DataItem
+import com.snapcat.data.remote.response.DataPrediction
 import com.snapcat.databinding.FragmentBottomCategoriesBinding
 import com.snapcat.databinding.FragmentBottomForgetPasswordBinding
 import com.snapcat.databinding.FragmentBottomJourneyBinding
 import com.snapcat.ui.screen.auth.verifikasi.VerifikasiDialogFragment
 import com.snapcat.ui.screen.detail.DetailJourneyDialogFragment
-import com.snapcat.ui.screen.detail.DetailJourneyDialogFragment.Companion.EXTRA_ID
 import com.snapcat.ui.screen.home.CategoriesAdapter
 import com.snapcat.ui.screen.home.JourneyAdapter
 import com.snapcat.ui.screen.shop.ShopAdapter
 import com.snapcat.ui.screen.shop.ShopViewModel
+import com.snapcat.util.Object
 import kotlinx.coroutines.launch
 
 class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
@@ -54,9 +55,23 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
 
         //VERSI GUA PUNYA, LAGI GUA HAPUS KEK FINDNAVCOTROLLER/FRAGMENTTRANSCTIONNYA, KLO MAU UBAH ATAU TMBHIN MONGGO BANG
         journeyAdapter = JourneyAdapter { dataItem: DataItem ->
-            val bundle = Bundle()
-            bundle.putString(EXTRA_ID, dataItem.id)
-            detailJourneyFragment.arguments = bundle
+
+            val data = DataPrediction(
+                catBreedPredictions = dataItem.breed,
+                catBreedDescription = dataItem.description,
+                uploadImage = dataItem.image
+            )
+            val args = Bundle().apply {
+                putParcelable("data_prediction", data)
+                putBoolean("is_from_scan", false)
+            }
+
+            val detailDialog = DetailJourneyDialogFragment()
+            detailDialog.arguments = args
+            detailDialog.show(
+                (context as AppCompatActivity).supportFragmentManager,
+                "DetailDialog"
+            )
         }
 
         userDataStore = UserDataStore.getInstance(requireContext())

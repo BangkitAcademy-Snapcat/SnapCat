@@ -17,6 +17,7 @@ import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.data.model.CatCategory
 import com.snapcat.data.remote.response.DataItem
+import com.snapcat.data.remote.response.DataPrediction
 import com.snapcat.databinding.FragmentHomeBinding
 import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.category.CategoriesDialogFragment
@@ -51,10 +52,22 @@ class HomeFragment : Fragment() {
 
         //VERSI GUA PUNYA, LAGI GUA HAPUS KEK FINDNAVCOTROLLER/FRAGMENTTRANSCTIONNYA, KLO MAU UBAH ATAU TMBHIN MONGGO BANG
         journeyAdapter = JourneyAdapter { dataItem: DataItem ->
-            val detailJourneyFragment = DetailJourneyDialogFragment()
-            val bundle = Bundle()
-            bundle.putString(DetailJourneyDialogFragment.EXTRA_ID, dataItem.id)
-            detailJourneyFragment.arguments = bundle
+            val data = DataPrediction(
+                catBreedPredictions = dataItem.breed,
+                catBreedDescription = dataItem.description,
+                uploadImage = dataItem.image
+            )
+            val args = Bundle().apply {
+                putParcelable("data_prediction", data)
+                putBoolean("is_from_scan", false)
+            }
+
+            val detailDialog = DetailJourneyDialogFragment()
+            detailDialog.arguments = args
+            detailDialog.show(
+                (context as AppCompatActivity).supportFragmentManager,
+                "DetailDialog"
+            )
         }
 
         userDataStore = UserDataStore.getInstance(requireContext())

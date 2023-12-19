@@ -25,10 +25,6 @@ import retrofit2.Response
 
 class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
-    companion object{
-        val EXTRA_ID = "EXTRA_ID"
-    }
-
     private var binding: FragmentBottomDetailJourneyBinding? = null
     var onDialogDismissed: OnDialogDismissListener? = null
     private lateinit var userDataStore: UserDataStore
@@ -62,13 +58,15 @@ class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickLis
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
         }
+
+        val isFromScan = arguments?.getBoolean("is_from_scan", false) ?: false
+
         val data = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getParcelable("data_prediction", DataPrediction::class.java)
         } else {
             @Suppress("DEPRECATION")
             arguments?.getParcelable("data_prediction")
         }
-        val isFromScan = arguments?.getBoolean("is_from_scan", false) ?: false
 
         if (isFromScan) {
             lifecycleScope.launch {
@@ -89,41 +87,6 @@ class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickLis
         binding?.close?.setOnClickListener {
             dismiss()
         }
-    // INI FUNGSIONALITAS DETAIL PUNYA GUA BANG
-//        val id_history = arguments?.getString(EXTRA_ID)
-//        binding?.name?.text  = id_history
-//        val id_history = arguments?.getString(EXTRA_ID)
-//        lifecycleScope.launch {
-//            userDataStore.getUserData().collect{ user ->
-//                if (id_history != null) {
-//                    viewModel.getHistoryById(user.token, id_history).observe(viewLifecycleOwner) {
-//                        if(it != null){
-//                            when(it){
-//                                is ResultMessage.Success -> {
-//                                    showLoading(false)
-//                                    binding?.apply {
-//                                        name.text = it.data.dataHistoryId.breed
-//                                        desc.text = it.data.dataHistoryId.description
-//                                        imageResult?.load(it.data.dataHistoryId.image)
-//                                    }
-//                                }
-//
-//                                is ResultMessage.Loading -> {
-//                                    showLoading(true)
-//                                }
-//
-//                                is ResultMessage.Error -> {
-//                                    showLoading(false)
-//                                }
-//
-//                                else -> {}
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
     }
 
     override fun onDestroyView() {

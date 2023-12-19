@@ -1,5 +1,6 @@
 package com.snapcat.ui.screen.home
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -35,6 +36,8 @@ class JourneyAdapter(private val onClick: (DataItem) -> Unit)
                 detailJourney.setOnClickListener {
                     onClick(data)
                 }
+
+
 //                Glide.with(itemView.context)
 //                    .load(data.image) // URL Gambar
 //                    .into(imgPhotoJourney)
