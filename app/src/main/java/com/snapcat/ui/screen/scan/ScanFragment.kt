@@ -193,9 +193,8 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
 
     private fun handleImageSaved(outputFileResults: ImageCapture.OutputFileResults, file: File) {
         val savedUri = outputFileResults.savedUri ?: Uri.fromFile(file)
-        Log.d("ScanFragment", "Photo capture succeeded: $savedUri")
 
-        viewModel.prediction(file).observe(requireActivity()) {
+        viewModel.prediction(uriToFile(savedUri, requireContext())).observe(requireActivity()) {
             handleResult(it)
         }
     }
