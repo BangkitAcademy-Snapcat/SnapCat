@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +18,7 @@ import com.snapcat.R
 import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
+import com.snapcat.data.remote.response.Data
 import com.snapcat.data.remote.response.DataItem
 import com.snapcat.data.remote.response.DataPrediction
 import com.snapcat.databinding.FragmentBottomCategoriesBinding
@@ -51,9 +53,7 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val detailJourneyFragment = DetailJourneyDialogFragment()
 
-        //VERSI GUA PUNYA, LAGI GUA HAPUS KEK FINDNAVCOTROLLER/FRAGMENTTRANSCTIONNYA, KLO MAU UBAH ATAU TMBHIN MONGGO BANG
         journeyAdapter = JourneyAdapter { dataItem: DataItem ->
 
             val data = DataPrediction(
@@ -114,6 +114,19 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
                                     journeyAdapter.submitList(it.data.dataItem)
 
                                     rvJourneyAll.adapter = journeyAdapter
+                                    searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+                                        override fun onQueryTextSubmit(query: String?): Boolean {
+                                            return false
+                                        }
+
+                                        override fun onQueryTextChange(newText: String?): Boolean {
+                                            val xx: List<DataItem> = it.data.dataItem.filter { data ->
+                                                data.breed.contains(newText.orEmpty(), ignoreCase = true)
+                                            }
+                                            journeyAdapter.submitList(xx)
+                                            return true
+                                        }
+                                    })
                                 }
                             }
                             is ResultMessage.Error -> {

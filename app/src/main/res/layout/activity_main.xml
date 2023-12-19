@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:itemIconSize="@dimen/_15sdp"
-            app:itemTextColor="@color/black"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_bar" />
     </androidx.cardview.widget.CardView>

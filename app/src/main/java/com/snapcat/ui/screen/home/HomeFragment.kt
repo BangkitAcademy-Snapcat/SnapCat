@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //VERSI GUA PUNYA, LAGI GUA HAPUS KEK FINDNAVCOTROLLER/FRAGMENTTRANSCTIONNYA, KLO MAU UBAH ATAU TMBHIN MONGGO BANG
         journeyAdapter = JourneyAdapter { dataItem: DataItem ->
             val data = DataPrediction(
                 catBreedPredictions = dataItem.breed,
@@ -133,9 +132,7 @@ class HomeFragment : Fragment() {
                     if(user != null){
                         when(user){
                             is ResultMessage.Success -> {
-                                Glide.with(requireActivity())
-                                    .load(user.data.dataUser.urlProfile)
-                                    .into(binding.profileImage)
+
                             }
 
                             else -> {}
