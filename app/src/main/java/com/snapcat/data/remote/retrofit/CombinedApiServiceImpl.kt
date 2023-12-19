@@ -5,6 +5,7 @@ import com.snapcat.data.model.User
 import com.snapcat.data.remote.response.ResponseGetAllHistories
 import com.snapcat.data.remote.response.ResponseGetAllShop
 import com.snapcat.data.remote.response.ResponseGetUser
+import com.snapcat.data.remote.response.ResponseHistoryById
 import com.snapcat.data.remote.response.ResponseLogin
 import com.snapcat.data.remote.response.ResponsePrediction
 import com.snapcat.data.remote.response.ResponseRegister
@@ -32,6 +33,8 @@ class CombinedApiServiceImpl(
     override suspend fun getAllShop(token: String, id: String): ResponseGetAllShop = apiServiceCC.getAllShop(token, id)
 
     override suspend fun getAllHistories(token: String, id: String): ResponseGetAllHistories = apiServiceCC.getAllHistories(token, id)
+
+    override suspend fun getHistoryById(token: String, id: String): ResponseHistoryById = apiServiceCC.getHistoryById(token, id)
 
     override suspend fun prediction(image: MultipartBody.Part): ResponsePrediction = apiServiceML.prediction(image)
 

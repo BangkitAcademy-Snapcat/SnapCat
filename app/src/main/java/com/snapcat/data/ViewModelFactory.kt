@@ -8,6 +8,7 @@ import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.detail.DetailViewModel
 import com.snapcat.ui.screen.home.HomeViewModel
 import com.snapcat.ui.screen.journey.JourneyViewModel
+import com.snapcat.ui.screen.profile.ProfileViewModel
 import com.snapcat.ui.screen.scan.ScanViewModel
 import com.snapcat.ui.screen.shop.ShopViewModel
 
@@ -27,6 +28,8 @@ class ViewModelFactory private constructor(private val snapCatRepository: SnapCa
             return ScanViewModel(snapCatRepository) as T
         }else if(modelClass.isAssignableFrom(DetailViewModel::class.java)){
             return DetailViewModel(snapCatRepository) as T
+        } else if(modelClass.isAssignableFrom(ProfileViewModel::class.java)){
+            return ProfileViewModel(snapCatRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

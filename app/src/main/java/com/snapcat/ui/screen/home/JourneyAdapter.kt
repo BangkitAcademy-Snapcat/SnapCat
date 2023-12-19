@@ -11,7 +11,8 @@ import com.snapcat.data.remote.response.DataItem
 import com.snapcat.databinding.ItemJourneyBinding
 
 
-class JourneyAdapter: ListAdapter<DataItem, JourneyAdapter.MyViewHolder>(DIFF_CALLBACK){
+class JourneyAdapter(private val onClick: (DataItem) -> Unit)
+    : ListAdapter<DataItem, JourneyAdapter.MyViewHolder>(DIFF_CALLBACK){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemJourneyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,16 +21,19 @@ class JourneyAdapter: ListAdapter<DataItem, JourneyAdapter.MyViewHolder>(DIFF_CA
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val review = getItem(position)
-        holder.bind(review)
+        holder.bind(review, onClick)
     }
 
     class MyViewHolder(val binding: ItemJourneyBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: DataItem){
+        fun bind(data: DataItem, onClick: (DataItem) -> Unit){
             binding.apply{
                 titleItemJourney.text = data.breed
                 timeItemJourney.text = "${data.createdAt.take(10)} - ${data.createdAt.substring(11, 19)}"
                 imgPhotoJourney.load(data.image){
 
+                }
+                detailJourney.setOnClickListener {
+                    onClick(data)
                 }
 //                Glide.with(itemView.context)
 //                    .load(data.image) // URL Gambar

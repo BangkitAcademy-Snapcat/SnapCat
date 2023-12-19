@@ -1,5 +1,6 @@
 package com.snapcat.ui.screen.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +16,11 @@ import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.data.model.CatCategory
+import com.snapcat.data.remote.response.DataItem
 import com.snapcat.databinding.FragmentHomeBinding
 import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.category.CategoriesDialogFragment
+import com.snapcat.ui.screen.detail.DetailJourneyDialogFragment
 import com.snapcat.ui.screen.journey.JourneyDialogFragment
 import com.snapcat.ui.screen.journey.JourneyViewModel
 import kotlinx.coroutines.launch
@@ -45,7 +48,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        journeyAdapter = JourneyAdapter()
+
+        //VERSI GUA PUNYA, LAGI GUA HAPUS KEK FINDNAVCOTROLLER/FRAGMENTTRANSCTIONNYA, KLO MAU UBAH ATAU TMBHIN MONGGO BANG
+        journeyAdapter = JourneyAdapter { dataItem: DataItem ->
+            val detailJourneyFragment = DetailJourneyDialogFragment()
+            val bundle = Bundle()
+            bundle.putString(DetailJourneyDialogFragment.EXTRA_ID, dataItem.id)
+            detailJourneyFragment.arguments = bundle
+        }
+
         userDataStore = UserDataStore.getInstance(requireContext())
 
         lifecycleScope.launch {
@@ -62,7 +73,7 @@ class HomeFragment : Fragment() {
         val layoutManagerJourney =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.rvJourney.layoutManager = layoutManagerJourney
-        binding.rvJourney.adapter = JourneyAdapter()
+        binding.rvJourney.adapter = journeyAdapter
         binding.rvJourney.isNestedScrollingEnabled = false
 
         binding.showAllCategories.setOnClickListener {

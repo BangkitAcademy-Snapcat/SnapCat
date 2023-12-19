@@ -18,16 +18,16 @@ import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.data.model.History
 import com.snapcat.data.remote.response.DataPrediction
 import com.snapcat.databinding.FragmentBottomDetailJourneyBinding
-import com.snapcat.ui.screen.journey.JourneyViewModel
 import com.snapcat.ui.screen.scan.OnDialogDismissListener
-import com.snapcat.util.ToastUtils
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Response
 
 class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
+
+    companion object{
+        val EXTRA_ID = "EXTRA_ID"
+    }
 
     private var binding: FragmentBottomDetailJourneyBinding? = null
     var onDialogDismissed: OnDialogDismissListener? = null
@@ -62,7 +62,6 @@ class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickLis
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
         }
-
         val data = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getParcelable("data_prediction", DataPrediction::class.java)
         } else {
@@ -90,6 +89,40 @@ class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickLis
         binding?.close?.setOnClickListener {
             dismiss()
         }
+    // INI FUNGSIONALITAS DETAIL PUNYA GUA BANG
+//        val id_history = arguments?.getString(EXTRA_ID)
+//        binding?.name?.text  = id_history
+//        val id_history = arguments?.getString(EXTRA_ID)
+//        lifecycleScope.launch {
+//            userDataStore.getUserData().collect{ user ->
+//                if (id_history != null) {
+//                    viewModel.getHistoryById(user.token, id_history).observe(viewLifecycleOwner) {
+//                        if(it != null){
+//                            when(it){
+//                                is ResultMessage.Success -> {
+//                                    showLoading(false)
+//                                    binding?.apply {
+//                                        name.text = it.data.dataHistoryId.breed
+//                                        desc.text = it.data.dataHistoryId.description
+//                                        imageResult?.load(it.data.dataHistoryId.image)
+//                                    }
+//                                }
+//
+//                                is ResultMessage.Loading -> {
+//                                    showLoading(true)
+//                                }
+//
+//                                is ResultMessage.Error -> {
+//                                    showLoading(false)
+//                                }
+//
+//                                else -> {}
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
     }
 

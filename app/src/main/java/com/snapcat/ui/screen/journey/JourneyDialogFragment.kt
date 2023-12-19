@@ -17,10 +17,13 @@ import com.snapcat.R
 import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
+import com.snapcat.data.remote.response.DataItem
 import com.snapcat.databinding.FragmentBottomCategoriesBinding
 import com.snapcat.databinding.FragmentBottomForgetPasswordBinding
 import com.snapcat.databinding.FragmentBottomJourneyBinding
 import com.snapcat.ui.screen.auth.verifikasi.VerifikasiDialogFragment
+import com.snapcat.ui.screen.detail.DetailJourneyDialogFragment
+import com.snapcat.ui.screen.detail.DetailJourneyDialogFragment.Companion.EXTRA_ID
 import com.snapcat.ui.screen.home.CategoriesAdapter
 import com.snapcat.ui.screen.home.JourneyAdapter
 import com.snapcat.ui.screen.shop.ShopAdapter
@@ -47,7 +50,15 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        journeyAdapter = JourneyAdapter()
+        val detailJourneyFragment = DetailJourneyDialogFragment()
+
+        //VERSI GUA PUNYA, LAGI GUA HAPUS KEK FINDNAVCOTROLLER/FRAGMENTTRANSCTIONNYA, KLO MAU UBAH ATAU TMBHIN MONGGO BANG
+        journeyAdapter = JourneyAdapter { dataItem: DataItem ->
+            val bundle = Bundle()
+            bundle.putString(EXTRA_ID, dataItem.id)
+            detailJourneyFragment.arguments = bundle
+        }
+
         userDataStore = UserDataStore.getInstance(requireContext())
         val bottomSheet: FrameLayout = dialog?.findViewById(com.google.android.material.R.id.design_bottom_sheet)!!
         bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT

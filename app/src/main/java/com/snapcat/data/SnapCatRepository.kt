@@ -9,6 +9,7 @@ import com.snapcat.data.model.User
 import com.snapcat.data.remote.response.ResponseGetAllHistories
 import com.snapcat.data.remote.response.ResponseGetAllShop
 import com.snapcat.data.remote.response.ResponseGetUser
+import com.snapcat.data.remote.response.ResponseHistoryById
 import com.snapcat.data.remote.retrofit.ApiService
 import com.snapcat.data.remote.retrofit.ApiServiceCC
 import com.snapcat.data.remote.retrofit.ApiServiceML
@@ -95,7 +96,20 @@ class SnapCatRepository (
     fun getUser(token: String, id: String): LiveData<ResultMessage<ResponseGetUser>> = liveData {
         try {
             emit(ResultMessage.Loading)
-            val response = apiService.getUser(token, id)
+            val response = apiService.getUser("Bearer $token", id)
+            emit(ResultMessage.Success(response))
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            emit(ResultMessage.Error(e))
+        } catch (e: IOException) {
+            emit(ResultMessage.Error(Exception("No network connection")))
+        }
+    }
+
+    fun getHistoryById(token: String, id: String): LiveData<ResultMessage<ResponseHistoryById>> = liveData {
+        try {
+            emit(ResultMessage.Loading)
+            val response = apiService.getHistoryById("Bearer $token", id)
             emit(ResultMessage.Success(response))
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()

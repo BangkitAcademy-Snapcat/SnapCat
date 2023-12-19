@@ -7,10 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.snapcat.data.ResultMessage
+import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.databinding.FragmentProfileBinding
 import com.snapcat.ui.screen.about.AboutAppFragment
+import com.snapcat.ui.screen.home.HomeViewModel
 import com.snapcat.ui.screen.journey.JourneyDialogFragment
 import com.snapcat.ui.screen.welcome.Welcome
 import kotlinx.coroutines.launch
@@ -19,6 +24,9 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var userDataStore: UserDataStore
+    private val viewModel by viewModels<ProfileViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +43,19 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             userDataStore.getUserData().collect{
                 binding.username.text = it.username
+                viewModel.getUser(it.token, it.userId).observe(viewLifecycleOwner){ user ->
+                    if(user != null){
+                        when(user){
+                            is ResultMessage.Success -> {
+                                Glide.with(requireActivity())
+                                    .load(user.data.dataUser.urlProfile)
+                                    .into(binding.imgPhoto)
+                            }
+
+                            else -> {}
+                        }
+                    }
+                }
             }
         }
         binding.buttonProfile1.setOnClickListener {

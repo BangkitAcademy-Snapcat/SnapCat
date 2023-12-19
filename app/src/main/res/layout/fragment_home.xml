@@ -20,6 +20,7 @@
             android:id="@+id/profileImage"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
+            android:scaleType="center"
             android:background="@drawable/rounded_edittext"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

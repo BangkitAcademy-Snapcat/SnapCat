@@ -5,6 +5,7 @@ import com.snapcat.data.model.User
 import com.snapcat.data.remote.response.ResponseGetAllHistories
 import com.snapcat.data.remote.response.ResponseGetAllShop
 import com.snapcat.data.remote.response.ResponseGetUser
+import com.snapcat.data.remote.response.ResponseHistoryById
 import com.snapcat.data.remote.response.ResponseLogin
 import com.snapcat.data.remote.response.ResponseRegister
 import okhttp3.ResponseBody
@@ -36,4 +37,7 @@ interface ApiServiceCC {
 
     @GET("api/histories/{id}")
     suspend fun getAllHistories(@Header("Authorization") token: String, @Path("id") id: String): ResponseGetAllHistories
+
+    @GET("api/history/{id}")
+    suspend fun getHistoryById(@Header("Authorization") token: String, @Path("id") id: String): ResponseHistoryById
 }
