@@ -123,7 +123,11 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
                                             val xx: List<DataItem> = it.data.dataItem.filter { data ->
                                                 data.breed.contains(newText.orEmpty(), ignoreCase = true)
                                             }
-                                            journeyAdapter.submitList(xx)
+                                            if(newText != ""){
+                                                journeyAdapter.submitList(xx)
+                                            }else{
+                                                journeyAdapter.submitList(it.data.dataItem)
+                                            }
                                             return true
                                         }
                                     })

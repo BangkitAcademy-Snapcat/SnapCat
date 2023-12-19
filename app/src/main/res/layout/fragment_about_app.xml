@@ -144,7 +144,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_regular"
                     android:lineSpacingExtra="5sp"
-                    android:text="- Innovation: Snapcat uses cutting-edge technology to provide a unique experience in identifying cat breeds. \n - Education: We understand the importance of knowledge in cat care, and we are committed to providing accurate and useful information. \n - Community: Snapcat is not just an app but also a community of cat lovers. Join and share your cat stories!"
+                    android:text="-How accurate is this app in general? \n In general, the results of this application are quite accurate and at least comparable to the latest technology.\n
+How accurate is this app actually?\nThe app was trained with 11,250 images to learn to differentiate between 15 individual races. As evaluated on independent test images, there is a general probability of 95% of showing the correct race in the results."
                     android:textSize="15sp" />
 
 

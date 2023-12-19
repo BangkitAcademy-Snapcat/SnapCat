@@ -68,11 +68,14 @@ class ShopFragment : Fragment() {
                                         }
 
                                         override fun onQueryTextChange(newText: String?): Boolean {
-                                            var xx: List<Data>//this is it.data.data
-                                            xx = it.data.data.filter { data ->
+                                            var xx: List<Data> = it.data.data.filter { data ->
                                                 data.name.contains(newText.orEmpty(), ignoreCase = true)
                                             }
-                                            shopAdapter.submitList(xx)
+                                            if(newText != ""){
+                                                shopAdapter.submitList(xx)
+                                            }else{
+                                                shopAdapter.submitList(it.data.data)
+                                            }
                                             return true
                                         }
                                     })
