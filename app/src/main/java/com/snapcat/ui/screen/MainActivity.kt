@@ -2,13 +2,11 @@ package com.snapcat.ui.screen
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -17,10 +15,10 @@ import com.snapcat.data.ViewModelFactory2
 import com.snapcat.data.local.preferences.SettingPreferences
 import com.snapcat.data.local.preferences.dataStore
 import com.snapcat.databinding.ActivityMainBinding
-import com.snapcat.ui.screen.shop.ShopFragment
 import com.snapcat.ui.screen.home.HomeFragment
 import com.snapcat.ui.screen.profile.ProfileFragment
 import com.snapcat.ui.screen.scan.ScanFragment
+import com.snapcat.ui.screen.shop.ShopFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         viewPager = binding.container
         viewPager.adapter = ScreenSlidePagerAdapter(this)
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val splashViewModel = ViewModelProvider(this, ViewModelFactory2(pref))[MainViewModel::class.java]
+        val splashViewModel =
+            ViewModelProvider(this, ViewModelFactory2(pref))[MainViewModel::class.java]
         splashViewModel.getThemeSettings().observe(this@MainActivity) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -44,30 +43,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.bottomNav.setOnItemSelectedListener { item ->
-            if (currentItemId != item.itemId) {
-                currentItemId = item.itemId
-                when (item.itemId) {
-                    R.id.home -> {
-                        viewPager.setCurrentItem(0, false)
-                        true
-                    }
-                    R.id.shop -> {
-                        viewPager.setCurrentItem(1, false)
-                        true
-                    }
-                    R.id.scan -> {
-                        viewPager.setCurrentItem(2, false)
-                        true
-                    }
-                    R.id.profile -> {
-                        viewPager.setCurrentItem(3, false)
-                        true
-                    }
-                    else -> false
+
+            when (item.itemId) {
+                R.id.home -> {
+                    viewPager.setCurrentItem(0, false)
+                    true
                 }
-            } else {
-                false
+
+                R.id.shop -> {
+                    viewPager.setCurrentItem(1, false)
+                    true
+                }
+
+                R.id.scan -> {
+                    viewPager.setCurrentItem(2, false)
+                    true
+                }
+
+                R.id.profile -> {
+                    viewPager.setCurrentItem(3, false)
+                    true
+                }
+
+                else -> false
             }
+
         }
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
