@@ -84,7 +84,7 @@ class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickLis
         binding?.desc?.text = data?.catBreedDescription
         binding?.imageResult?.load(data?.uploadImage)
 
-        binding?.close?.setOnClickListener {
+        binding?.closeLogin?.setOnClickListener {
             dismiss()
         }
     }

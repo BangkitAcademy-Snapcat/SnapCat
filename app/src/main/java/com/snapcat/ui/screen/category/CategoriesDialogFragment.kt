@@ -54,7 +54,7 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
         }
-        filteredCategories.addAll(getListHeroes())
+        filteredCategories.addAll(getListCat())
 
         val spanCount = 3
         val layoutManagerCategory = GridLayoutManager(requireActivity(), spanCount)
@@ -91,7 +91,7 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
         }
     }
 
-    private fun getListHeroes(): ArrayList<CatCategory> {
+    private fun getListCat(): ArrayList<CatCategory> {
         val dataName = resources.getStringArray(R.array.data_name)
         val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
         val listHero = ArrayList<CatCategory>()

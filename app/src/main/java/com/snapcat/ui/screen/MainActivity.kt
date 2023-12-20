@@ -2,6 +2,8 @@ package com.snapcat.ui.screen
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -25,22 +27,28 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var binding: ActivityMainBinding
-    private var currentItemId = R.id.home
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val currentNightMode = AppCompatDelegate.getDefaultNightMode()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewPager = binding.container
         viewPager.adapter = ScreenSlidePagerAdapter(this)
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val splashViewModel =
+        val mainViewModel =
             ViewModelProvider(this, ViewModelFactory2(pref))[MainViewModel::class.java]
-        splashViewModel.getThemeSettings().observe(this@MainActivity) { isDarkModeActive: Boolean ->
+        mainViewModel.getThemeSettings().observe(this@MainActivity) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
+        }
+        if(currentNightMode == AppCompatDelegate.MODE_NIGHT_YES){
+            binding.bottomNav.setBackgroundColor(Color.parseColor("#4D776B5D"))
+        }
+        if(currentNightMode == AppCompatDelegate.MODE_NIGHT_NO){
+            binding.bottomNav.setBackgroundColor(Color.parseColor("#4D776B5D"))
         }
         binding.bottomNav.setOnItemSelectedListener { item ->
 
@@ -102,7 +110,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        // Call finish() to close the activity
         finish()
     }
 }

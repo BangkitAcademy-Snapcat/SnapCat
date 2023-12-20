@@ -1,11 +1,15 @@
 package com.snapcat.ui.screen.home
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +54,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentNightMode = AppCompatDelegate.getDefaultNightMode()
         journeyAdapter = JourneyAdapter { dataItem: DataItem ->
             val data = DataPrediction(
                 catBreedPredictions = dataItem.breed,
@@ -76,7 +81,7 @@ class HomeFragment : Fragment() {
                 binding.username.text = it.username
             }
         }
-        list.addAll(getListHeroes())
+        list.addAll(getListCat())
         val layoutManagerCategory =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCategories.layoutManager = layoutManagerCategory
@@ -102,6 +107,29 @@ class HomeFragment : Fragment() {
                 "JourneyDialog"
             )
         }
+        if(currentNightMode == AppCompatDelegate.MODE_NIGHT_YES){
+            val backgroundDrawable = binding.profileImage.background as? GradientDrawable
+
+            if (backgroundDrawable != null) {
+                backgroundDrawable.setStroke(2, Color.WHITE) // 2dp stroke width
+                binding.profileImage.background = backgroundDrawable
+            }
+        }
+        if(currentNightMode == AppCompatDelegate.MODE_NIGHT_NO){
+            val backgroundDrawable = binding.profileImage.background as? GradientDrawable
+
+            if (backgroundDrawable != null) {
+                backgroundDrawable.setStroke(2, Color.BLACK) // 2dp stroke width
+                binding.profileImage.background = backgroundDrawable
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        })
+
         lifecycleScope.launch {
             userDataStore.getUserData().collect {
                 viewModel.getAllHistories(it.token, it.userId).observe(viewLifecycleOwner) {
@@ -143,11 +171,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getListHeroes(): ArrayList<CatCategory> {
+    private fun getListCat(): ArrayList<CatCategory> {
         val dataName = resources.getStringArray(R.array.data_name)
         val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
         val listHero = ArrayList<CatCategory>()
-        for (i in dataName.indices) {
+        for (i in 0 until 4) {
             val hero = CatCategory(dataName[i], dataPhoto.getResourceId(i, -1))
             listHero.add(hero)
         }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -39,6 +40,12 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         userDataStore = UserDataStore.getInstance(requireContext())
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        })
+
         binding.buttonProfile1.setOnClickListener {
             val journeyDialog = JourneyDialogFragment()
             journeyDialog.show(
@@ -70,6 +77,7 @@ class ProfileFragment : Fragment() {
                     (context as AppCompatActivity).supportFragmentManager,
                     "LoginDialogFragment"
                 )
+                requireActivity().finish()
                 userDataStore.deleteSession()
 
             }

@@ -21,6 +21,7 @@ import com.snapcat.databinding.FragmentBottomRegisterBinding
 import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.auth.forget.ForgetDialogFragment
 import com.snapcat.ui.screen.auth.login.LoginDialogFragment
+import com.snapcat.ui.screen.detail.DetailJourneyDialogFragment
 import com.snapcat.util.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -114,7 +115,11 @@ class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener
                 ToastUtils.showToast(requireActivity(), "Register berhasil")
                 val response = ResponseRegister(data = result.data.data, message = result.data.message)
                 showLoading(false)
-                dismiss()
+                val loginDialogFragment = LoginDialogFragment()
+                loginDialogFragment.show(
+                    (context as AppCompatActivity).supportFragmentManager,
+                    "LoginDialogFragment"
+                )
 
 
             }
