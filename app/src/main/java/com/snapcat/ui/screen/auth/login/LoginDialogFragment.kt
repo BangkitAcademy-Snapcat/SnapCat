@@ -5,11 +5,13 @@ import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +29,7 @@ import com.snapcat.ui.screen.MainActivity
 import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.auth.forget.ForgetDialogFragment
 import com.snapcat.ui.screen.auth.register.RegisterDialogFragment
+import com.snapcat.ui.screen.onboarding.OnBoarding
 import com.snapcat.util.ToastUtils
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
@@ -76,7 +79,16 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
         binding?.login?.setOnClickListener(this)
         binding?.forgetPassword?.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         binding?.closeLogin?.setOnClickListener {
-            dismiss()
+            startActivity(Intent(requireActivity(), OnBoarding::class.java))
+        }
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                startActivity(Intent(requireActivity(), OnBoarding::class.java))
+                return@setOnKeyListener true
+            }
+            false
         }
         binding?.toSignUp?.setOnClickListener {
             dismiss()
@@ -141,7 +153,6 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
                 showLoading(false)
                 dismiss()
                 startActivity(Intent(requireContext(), MainActivity::class.java))
-                requireActivity().finish()
 
             }
             is ResultMessage.Error -> {

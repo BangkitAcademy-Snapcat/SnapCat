@@ -52,6 +52,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/transparent"
                 android:contentDescription="back"
+                android:visibility="gone"
                 android:padding="@dimen/_8sdp"
                 style="@style/Search"
                 app:layout_constraintBottom_toBottomOf="parent"

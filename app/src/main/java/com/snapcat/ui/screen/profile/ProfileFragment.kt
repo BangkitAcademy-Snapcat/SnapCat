@@ -1,6 +1,5 @@
 package com.snapcat.ui.screen.profile
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,9 +14,8 @@ import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
 import com.snapcat.databinding.FragmentProfileBinding
 import com.snapcat.ui.screen.about.AboutAppFragment
-import com.snapcat.ui.screen.home.HomeViewModel
+import com.snapcat.ui.screen.auth.login.LoginDialogFragment
 import com.snapcat.ui.screen.journey.JourneyDialogFragment
-import com.snapcat.ui.screen.welcome.Welcome
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
@@ -76,9 +74,13 @@ class ProfileFragment : Fragment() {
 
         binding.buttonProfile3.setOnClickListener {
             lifecycleScope.launch {
-                startActivity(Intent(requireActivity(), Welcome::class.java))
-                requireActivity().finish()
+                val loginDialogFragment = LoginDialogFragment()
+                loginDialogFragment.show(
+                    (context as AppCompatActivity).supportFragmentManager,
+                    "LoginDialogFragment"
+                )
                 userDataStore.deleteSession()
+
             }
         }
 

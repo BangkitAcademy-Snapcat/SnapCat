@@ -61,26 +61,10 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
         layoutManagerCategory.orientation = GridLayoutManager.VERTICAL
         binding?.rvCategoriesAll?.layoutManager = layoutManagerCategory
         binding?.rvCategoriesAll?.adapter = categoriesAdapter2
-
-        binding?.searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filteredCategories.clear()
-                filteredCategories.addAll(filteredCategories.filter { data ->
-                    data.name.contains(newText.orEmpty(), ignoreCase = true)
-                })
-                categoriesAdapter2.notifyDataSetChanged()
-                return true
-            }
-        })
         binding?.closeLogin?.setOnClickListener {
             dismiss()
         }
         binding?.buttonSearch?.setOnClickListener {
-            // Toggle status on/off
             isFunctionEnabled = !isFunctionEnabled
             binding?.cardView?.visibility = if (isFunctionEnabled) View.VISIBLE else View.GONE
         }
@@ -118,7 +102,4 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
         return listHero
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        // binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
 }
