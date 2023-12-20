@@ -9,9 +9,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.snapcat.R
+import com.snapcat.data.ViewModelFactory2
+import com.snapcat.data.local.preferences.SettingPreferences
+import com.snapcat.data.local.preferences.dataStore
 import com.snapcat.databinding.ActivityMainBinding
 import com.snapcat.ui.screen.shop.ShopFragment
 import com.snapcat.ui.screen.home.HomeFragment
@@ -30,6 +34,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewPager = binding.container
         viewPager.adapter = ScreenSlidePagerAdapter(this)
+        val pref = SettingPreferences.getInstance(application.dataStore)
+        val splashViewModel = ViewModelProvider(this, ViewModelFactory2(pref))[MainViewModel::class.java]
+        splashViewModel.getThemeSettings().observe(this@MainActivity) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
         binding.bottomNav.setOnItemSelectedListener { item ->
             if (currentItemId != item.itemId) {
                 currentItemId = item.itemId

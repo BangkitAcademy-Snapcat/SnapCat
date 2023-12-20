@@ -1,11 +1,14 @@
 package com.snapcat.ui.screen.shop
 
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +44,7 @@ class ShopFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         shopAdapter = ShopAdapter()
 
         userDataStore = UserDataStore.getInstance(requireContext())
@@ -48,7 +52,14 @@ class ShopFragment : Fragment() {
         binding.buttonSearch.setOnClickListener {
             isFunctionEnabled = !isFunctionEnabled
             binding.cardView.visibility = if (isFunctionEnabled) View.VISIBLE else View.GONE
-            binding.heroShop.visibility = if (isFunctionEnabled) View.GONE else View.VISIBLE
+            binding.hero.visibility = if (isFunctionEnabled) View.GONE else View.VISIBLE
+            if(isFunctionEnabled){
+                binding.linearLayout5.visibility = View.VISIBLE
+                binding.heroShop.setPadding(16,0,16,0)
+            }else{
+                binding.linearLayout5.visibility = View.GONE
+                binding.heroShop.setPadding(16,20,16,0)
+            }
         }
 
         lifecycleScope.launch {

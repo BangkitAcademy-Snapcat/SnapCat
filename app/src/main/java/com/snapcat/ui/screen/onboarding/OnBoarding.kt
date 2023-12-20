@@ -3,21 +3,12 @@ package com.snapcat.ui.screen.onboarding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
-import androidx.annotation.StringRes
 import androidx.core.view.WindowCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.snapcat.R
 import com.snapcat.databinding.ActivityOnBoardingBinding
-import com.snapcat.databinding.ContentOnBoardingBinding
-import com.snapcat.ui.screen.auth.AuthViewModel
-import com.snapcat.ui.screen.auth.login.LoginDialogFragment
-import com.snapcat.ui.screen.auth.register.RegisterDialogFragment
-import dagger.hilt.android.AndroidEntryPoint
 
-class OnBoarding : AppCompatActivity() {
+class OnBoarding : AppCompatActivity(), OnBoardingActivityCallback {
     private lateinit var binding: ActivityOnBoardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,48 +43,12 @@ class OnBoarding : AppCompatActivity() {
             }
 
         }
-        /*binding.apply{
-            buttonNext.setOnClickListener {
-                buttonBack.visibility = View.VISIBLE
-                buttonNext.visibility = View.INVISIBLE
-                dot1.setImageResource(R.drawable.default_dot)
-                dot2.setImageResource(R.drawable.selected_dot)
-                logInContent.visibility = View.VISIBLE
-                signUpContent.visibility = View.VISIBLE
-                imageOnboarding.setImageResource(R.drawable.onboarding_2)
-                titleContent.text = getString(R.string.title_on_boarding)
-                descContent.text = getString(R.string.desc2_onboarding)
-            }
-
-            buttonBack.setOnClickListener {
-                buttonBack.visibility = View.INVISIBLE
-                buttonNext.visibility = View.VISIBLE
-                dot1.setImageResource(R.drawable.selected_dot)
-                dot2.setImageResource(R.drawable.default_dot)
-                logInContent.visibility = View.INVISIBLE
-                signUpContent.visibility = View.INVISIBLE
-                imageOnboarding.setImageResource(R.drawable.onboarding_1)
-                titleContent.text = getString(R.string.title_on_boarding)
-                descContent.text = getString(R.string.desc1_onboarding)
-            }
-
-            logInContent.setOnClickListener {
-                val loginDialog = LoginDialogFragment(authViewModel)
-                loginDialog.show(supportFragmentManager, "LoginDialog")
-            }
-
-            signUpContent.setOnClickListener {
-                val regsiterDialog = RegisterDialogFragment(authViewModel)
-                regsiterDialog.show(supportFragmentManager, "RegisterDialog")
-            }
-        }*/
-//        val sectionsPagerAdapter = SectionsPagerAdapter(this)
-//        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
-//        viewPager.adapter = sectionsPagerAdapter
-//        val tabs: TabLayout = findViewById(R.id.tabs)
-//        TabLayoutMediator(tabs, viewPager) { tab, position ->
-//            tab.text = resources.getString(TAB_TITLES[position])
-//        }.attach()
-//        supportActionBar?.elevation = 0f
     }
+    override fun OnBoardingActivity() {
+        finish()
+    }
+}
+
+interface OnBoardingActivityCallback {
+    fun OnBoardingActivity()
 }

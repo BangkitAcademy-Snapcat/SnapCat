@@ -1,6 +1,7 @@
 package com.snapcat.ui.screen.auth.login
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
@@ -30,6 +31,7 @@ import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.auth.forget.ForgetDialogFragment
 import com.snapcat.ui.screen.auth.register.RegisterDialogFragment
 import com.snapcat.ui.screen.onboarding.OnBoarding
+import com.snapcat.ui.screen.onboarding.OnBoardingActivityCallback
 import com.snapcat.util.ToastUtils
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
@@ -38,6 +40,7 @@ import retrofit2.Response
 class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var binding: FragmentBottomLoginBinding? = null
+    private var callback: OnBoardingActivityCallback? = null
     private val viewModel by viewModels<AuthViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
@@ -151,6 +154,7 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
                     userDataStore.saveUserData(userId, username, token, email)
                 }
                 showLoading(false)
+                callback?.OnBoardingActivity()
                 dismiss()
                 startActivity(Intent(requireContext(), MainActivity::class.java))
 
@@ -168,5 +172,12 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
     }
     private fun showLoading(isLoading: Boolean) {
          binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnBoardingActivityCallback) {
+            callback = context
+        }
     }
 }

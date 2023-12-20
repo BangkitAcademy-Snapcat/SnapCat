@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.snapcat.di.Injection
+import com.snapcat.ui.dark_mode.ModeViewModel
 import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.detail.DetailViewModel
 import com.snapcat.ui.screen.home.HomeViewModel
