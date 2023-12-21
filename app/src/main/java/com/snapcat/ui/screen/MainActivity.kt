@@ -34,16 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewPager = binding.container
         viewPager.adapter = ScreenSlidePagerAdapter(this)
-        val pref = SettingPreferences.getInstance(application.dataStore)
-        val mainViewModel =
-            ViewModelProvider(this, ViewModelFactory2(pref))[MainViewModel::class.java]
-        mainViewModel.getThemeSettings().observe(this@MainActivity) { isDarkModeActive: Boolean ->
-            if (isDarkModeActive) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
+
         if(currentNightMode == AppCompatDelegate.MODE_NIGHT_YES){
             binding.bottomNav.setBackgroundColor(Color.parseColor("#4D776B5D"))
         }
