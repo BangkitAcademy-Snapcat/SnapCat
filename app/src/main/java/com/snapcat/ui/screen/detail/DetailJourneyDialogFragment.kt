@@ -3,6 +3,7 @@ package com.snapcat.ui.screen.detail
 import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +58,16 @@ class DetailJourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickLis
 
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
+        }
+
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                dismiss()
+                return@setOnKeyListener true
+            }
+            false
         }
 
         val isFromScan = arguments?.getBoolean("is_from_scan", false) ?: false

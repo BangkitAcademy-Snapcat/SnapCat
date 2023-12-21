@@ -3,6 +3,7 @@ package com.snapcat.ui.dark_mode
 import android.app.Dialog
 import android.os.Bundle
 import android.renderscript.ScriptGroup.Binding
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +69,15 @@ class ModeFragment : BottomSheetDialogFragment() {
         val switchTheme = view.findViewById<SwitchMaterial>(R.id.switch_theme)
         val pref = SettingPreferences.getInstance(requireActivity().application.dataStore)
         val modeViewModel = ViewModelProvider(this, ViewModelFactory2(pref))[ModeViewModel::class.java]
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                dismiss()
+                return@setOnKeyListener true
+            }
+            false
+        }
         modeViewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

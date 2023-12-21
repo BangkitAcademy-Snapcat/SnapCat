@@ -22,6 +22,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".TriggerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.screen.EmptyActivity"
             android:exported="false" />
         <activity

@@ -17,6 +17,7 @@ class Welcome : AppCompatActivity() {
 
         binding.nextButton.setOnClickListener {
             startActivity(Intent(this@Welcome, OnBoarding::class.java))
+            finish()
         }
 
     }

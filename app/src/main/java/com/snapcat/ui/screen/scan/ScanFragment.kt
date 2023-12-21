@@ -118,12 +118,18 @@ class ScanFragment : Fragment(), OnDialogDismissListener {
             val cameraProvider = cameraProviderFuture.get()
             val resolutionSelector = buildResolutionSelector()
 
+            val newCameraSelector = if (isFrontCameraSelected) {
+                CameraSelector.DEFAULT_FRONT_CAMERA
+            } else {
+                CameraSelector.DEFAULT_BACK_CAMERA
+            }
+
             preview = buildPreview(resolutionSelector)
             imageCapture = buildImageCapture()
 
             try {
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview!!, imageCapture!!)
+                cameraProvider.bindToLifecycle(this, newCameraSelector, preview!!, imageCapture!!)
                 Log.d("ScanFragment", "Camera initialized successfully.")
             } catch (e: Exception) {
                 Log.e("ScanFragment", "Use case binding failed: ${e.message}")

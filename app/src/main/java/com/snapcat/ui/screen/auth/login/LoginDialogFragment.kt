@@ -31,7 +31,6 @@ import com.snapcat.ui.screen.auth.AuthViewModel
 import com.snapcat.ui.screen.auth.forget.ForgetDialogFragment
 import com.snapcat.ui.screen.auth.register.RegisterDialogFragment
 import com.snapcat.ui.screen.onboarding.OnBoarding
-import com.snapcat.ui.screen.onboarding.OnBoardingActivityCallback
 import com.snapcat.util.ToastUtils
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
@@ -40,7 +39,6 @@ import retrofit2.Response
 class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var binding: FragmentBottomLoginBinding? = null
-    private var callback: OnBoardingActivityCallback? = null
     private val viewModel by viewModels<AuthViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
@@ -88,7 +86,7 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
         requireView().requestFocus()
         requireView().setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
-                startActivity(Intent(requireActivity(), OnBoarding::class.java))
+                dismiss()
                 return@setOnKeyListener true
             }
             false
@@ -143,7 +141,6 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
                 showLoading(true)
             }
             is ResultMessage.Success -> {
-                ToastUtils.showToast(requireActivity(), "Login berhasil")
                 val response = ResponseLogin(data = result.data.data, message = result.data.message)
 
                 val userId: String? = response.data.user.id
@@ -154,10 +151,10 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
                     userDataStore.saveUserData(userId, username, token, email)
                 }
                 showLoading(false)
-                callback?.OnBoardingActivity()
+                requireActivity().finish()
                 dismiss()
                 startActivity(Intent(requireContext(), MainActivity::class.java))
-
+                ToastUtils.showToast(requireActivity(), "Log in Successfully, Welcome ${username} !")
             }
             is ResultMessage.Error -> {
                 val exception = result.exception
@@ -172,12 +169,5 @@ class LoginDialogFragment : BottomSheetDialogFragment(), View.OnClickListener {
     }
     private fun showLoading(isLoading: Boolean) {
          binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnBoardingActivityCallback) {
-            callback = context
-        }
     }
 }

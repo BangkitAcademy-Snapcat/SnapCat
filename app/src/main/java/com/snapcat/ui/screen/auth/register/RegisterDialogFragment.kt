@@ -2,6 +2,7 @@ package com.snapcat.ui.screen.auth.register
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +47,15 @@ class RegisterDialogFragment : BottomSheetDialogFragment(), View.OnClickListener
             bottomSheet.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
             val behavior = BottomSheetBehavior.from(bottomSheet)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
-
+            requireView().isFocusableInTouchMode = true
+            requireView().requestFocus()
+            requireView().setOnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                    dismiss()
+                    return@setOnKeyListener true
+                }
+                false
+            }
             behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     if (newState == BottomSheetBehavior.STATE_DRAGGING) {

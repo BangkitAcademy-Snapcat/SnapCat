@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.snapcat.databinding.ActivityOnBoardingBinding
 
-class OnBoarding : AppCompatActivity(), OnBoardingActivityCallback {
+class OnBoarding : AppCompatActivity() {
     private lateinit var binding: ActivityOnBoardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,11 +44,4 @@ class OnBoarding : AppCompatActivity(), OnBoardingActivityCallback {
 
         }
     }
-    override fun OnBoardingActivity() {
-        finish()
-    }
-}
-
-interface OnBoardingActivityCallback {
-    fun OnBoardingActivity()
 }

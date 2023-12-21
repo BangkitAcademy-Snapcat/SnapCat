@@ -1,6 +1,7 @@
 package com.snapcat.ui.screen.journey
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,15 @@ class JourneyDialogFragment : BottomSheetDialogFragment(), View.OnClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                dismiss()
+                return@setOnKeyListener true
+            }
+            false
+        }
         journeyAdapter = JourneyAdapter { dataItem: DataItem ->
 
             val data = DataPrediction(

@@ -29,7 +29,7 @@ class JourneyAdapter(private val onClick: (DataItem) -> Unit)
         fun bind(data: DataItem, onClick: (DataItem) -> Unit){
             binding.apply{
                 titleItemJourney.text = data.breed
-                timeItemJourney.text = "${data.createdAt.take(10)}\n${data.createdAt.substring(11, 19)}"
+                timeItemJourney.text = "${data.createdAt.take(10)}"
                 imgPhotoJourney.load(data.image){
 
                 }

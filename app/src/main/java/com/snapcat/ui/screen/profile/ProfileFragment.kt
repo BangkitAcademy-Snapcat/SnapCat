@@ -1,5 +1,6 @@
 package com.snapcat.ui.screen.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.snapcat.TriggerActivity
 import com.snapcat.data.ResultMessage
 import com.snapcat.data.ViewModelFactory
 import com.snapcat.data.local.preferences.UserDataStore
@@ -18,6 +20,8 @@ import com.snapcat.ui.dark_mode.ModeFragment
 import com.snapcat.ui.screen.about.AboutAppFragment
 import com.snapcat.ui.screen.auth.login.LoginDialogFragment
 import com.snapcat.ui.screen.journey.JourneyDialogFragment
+import com.snapcat.ui.screen.onboarding.OnBoarding
+import com.snapcat.util.ToastUtils
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
@@ -72,14 +76,10 @@ class ProfileFragment : Fragment() {
 
         binding.buttonProfile3.setOnClickListener {
             lifecycleScope.launch {
-                val loginDialogFragment = LoginDialogFragment()
-                loginDialogFragment.show(
-                    (context as AppCompatActivity).supportFragmentManager,
-                    "LoginDialogFragment"
-                )
                 requireActivity().finish()
+                startActivity(Intent(requireActivity(), OnBoarding::class.java))
                 userDataStore.deleteSession()
-
+                ToastUtils.showToast(requireActivity(), "Your session has ended, Goodbye!")
             }
         }
 

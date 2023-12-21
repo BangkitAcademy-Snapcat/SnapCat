@@ -1,6 +1,7 @@
 package com.snapcat.ui.screen.category
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -38,6 +39,15 @@ class CategoriesDialogFragment : BottomSheetDialogFragment(), View.OnClickListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                dismiss()
+                return@setOnKeyListener true
+            }
+            false
+        }
         categoriesAdapter2 = CategoriesAdapter2(filteredCategories)
         val bottomSheet: FrameLayout =
             dialog?.findViewById(com.google.android.material.R.id.design_bottom_sheet)!!
